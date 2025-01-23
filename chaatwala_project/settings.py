@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-o)uir*(bg0jt__e&wtu6!%so_lo^xx)4nfc2_gq9zhrvzk=492'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['8000-kelseyjaneada-chaatwala-9h64zbfh5yo.ws.codeinstitute-ide.net']
+ALLOWED_HOSTS = ['8000-kelseyjaneada-chaatwala-9h64zbfh5yo.ws.codeinstitute-ide.net', 
+                '.herokuapp.com']
 
 
 # Application definition
@@ -37,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bookings',
 ]
 
 MIDDLEWARE = [
@@ -49,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'my_project.urls'
+ROOT_URLCONF = 'chaatwala_project.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'my_project.wsgi.application'
+WSGI_APPLICATION = 'chaatwala_project.wsgi.application'
 
 
 # Database
