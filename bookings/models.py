@@ -3,6 +3,13 @@ from django.contrib.auth.models import User
 
 
 class Booking(models.Model):
+    """
+    Stores a single booking entry related to :model:`auth.User`.
+    Each booking includes a unique ID, a contact name (optional),
+    the number of guests, booking date and time, an optional special 
+    request, and the booking status. The booking is associated with 
+    a specific user who created it.
+    """
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
         ('CONFIRMED', 'Confirmed'),
