@@ -6,8 +6,8 @@ class Booking(models.Model):
     """
     Stores a single booking entry related to :model:`auth.User`.
     Each booking includes a unique ID, a contact name (optional),
-    the number of guests, booking date and time, an optional special 
-    request, and the booking status. The booking is associated with 
+    the number of guests, booking date and time, an optional special
+    request, and the booking status. The booking is associated with
     a specific user who created it.
     """
     STATUS_CHOICES = [
@@ -18,7 +18,8 @@ class Booking(models.Model):
 
     booking_id = models.CharField(
         primary_key=True,
-        max_length=50
+        max_length=50,
+        editable=False
     )
     user = models.ForeignKey(
         User,
@@ -40,9 +41,19 @@ class Booking(models.Model):
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
-        default='PENDING' 
+        default='PENDING'
     )
+
+    def save(self, *args, **kwargs):
+        """
+        Overrides save method to generate a unique booking ID
+        prefixed with 'BOOK' and starting from 1.
+        """
+        if not self.booking_id:
+            last_booking = Booking.objects.order_by('id').last()
+            next_id = last_booking.id + 1 if last_booking else 1
+            self.booking_id = f"BOOK{next_id}"
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Booking {self.booking_id} by {self.user.username}"
-
