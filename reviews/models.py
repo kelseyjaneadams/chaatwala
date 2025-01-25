@@ -43,8 +43,8 @@ class Review(models.Model):
         prefixed with 'REV' and starting from 1.
         """
         if not self.review_id:
-            last_review = Review.objects.order_by('id').last()
-            next_id = last_review.id + 1 if last_review else 1
+            last_review = Review.objects.order_by('pk').last()
+            next_id = last_review.pk + 1 if last_review else 1
             self.review_id = f"REV{next_id}"
         super().save(*args, **kwargs)
 
