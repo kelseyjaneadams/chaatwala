@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-kelseyjaneada-chaatwala-9h64zbfh5yo.ws.codeinstitute-ide.net', 
                 '.herokuapp.com']
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bookings',
     'reviews',
+    'profiles',
 ]
 
 MIDDLEWARE = [
