@@ -16,12 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('reviews/', include('reviews.urls')),
+    path('admin/', admin.site.urls), 
+    path('summernote/', include('django_summernote.urls')),  
+    path('reviews/', include('reviews.urls')),  
     path('bookings/', include('bookings.urls')),
     path('profiles/', include('profiles.urls')),
-    path('admin/', admin.site.urls),
 ]
 
 # Serve media files during development

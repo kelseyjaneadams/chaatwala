@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'bookings',
     'reviews',
     'profiles',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
