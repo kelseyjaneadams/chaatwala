@@ -10,6 +10,7 @@ class Booking(models.Model):
     request, and the booking status. The booking is associated with
     a specific user who created it.
     """
+
     STATUS_CHOICES = [
         ('PENDING', 'Pending'),
         ('CONFIRMED', 'Confirmed'),
@@ -33,8 +34,7 @@ class Booking(models.Model):
     number_of_guests = models.IntegerField()
     booking_date = models.DateField()
     booking_time = models.TimeField()
-    special_request = models.CharField(
-        max_length=255,
+    special_request = models.TextField(
         blank=True,
         null=True
     )
@@ -50,8 +50,8 @@ class Booking(models.Model):
         prefixed with 'BOOK' and starting from 1.
         """
         if not self.booking_id:
-            last_booking = Booking.objects.order_by('id').last()
-            next_id = last_booking.id + 1 if last_booking else 1
+            last_booking = Booking.objects.order_by('pk').last()
+            next_id = last_booking.pk + 1 if last_booking else 1
             self.booking_id = f"BOOK{next_id}"
         super().save(*args, **kwargs)
 

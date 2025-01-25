@@ -4,17 +4,16 @@ from django_summernote.admin import SummernoteModelAdmin
 from .forms import CustomTimeForm
 
 
-# Register your models here.
 @admin.register(Booking)
 class BookingAdmin(SummernoteModelAdmin):
     """
-    Admin customisation for the Booking model.
+    Admin customization for the Booking model.
 
     - Integrates Summernote for the 'special_request' field.
-    - Customises the list view to display booking details.
+    - Customizes the list view to display booking details.
     - Adds filters for status and booking date.
     - Enables search functionality for booking ID and user.
-    - Uses a custom form to add dropdowns for booking_time.
+    - Uses a custom form to provide dropdowns for hour and minute fields.
     """
     summernote_fields = ('special_request',)
     list_display = (

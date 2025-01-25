@@ -21,14 +21,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls), 
+    path('', menus_view, name='home'),
+    path('admin/', admin.site.urls),
     path('summernote/', include('django_summernote.urls')),
-    path('menus/', menus_view, name='menus'),
-    path('reviews/', include('reviews.urls')),  
+    path('reviews/', include('reviews.urls')),
     path('bookings/', include('bookings.urls')),
     path('profiles/', include('profiles.urls')),
 ]
 
-# Serve media files during development
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
