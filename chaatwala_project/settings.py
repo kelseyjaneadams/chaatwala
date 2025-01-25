@@ -27,10 +27,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-kelseyjaneada-chaatwala-9h64zbfh5yo.ws.codeinstitute-ide.net', 
                 '.herokuapp.com']
+
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://8000-kelseyjaneada-chaatwala-9h64zbfh5yo.ws.codeinstitute-ide.net',
+    'https://*.herokuapp.com',
+]
 
 
 # Application definition
@@ -42,10 +48,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_summernote',
     'bookings',
     'reviews',
     'profiles',
-    'django_summernote',
 ]
 
 MIDDLEWARE = [
