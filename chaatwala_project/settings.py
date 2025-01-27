@@ -27,11 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG") == "True"
 
 ALLOWED_HOSTS = ['8000-kelseyjaneada-chaatwala-9h64zbfh5yo.ws.codeinstitute-ide.net', 
                 '.herokuapp.com']
-
 
 CSRF_TRUSTED_ORIGINS = [
     'https://8000-kelseyjaneada-chaatwala-9h64zbfh5yo.ws.codeinstitute-ide.net',
@@ -96,9 +95,23 @@ WSGI_APPLICATION = 'chaatwala_project.wsgi.application'
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+if os.environ.get('DEVELOPMENT') == 'True':
+    print("Using local SQLite database.")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+else:
+    print("Using production database.")
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+
+# DATABASES = {
+#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

@@ -11,6 +11,5 @@ class ReviewAdmin(SummernoteModelAdmin):
     additional configurations for list display, filtering, and search.
     """
     summernote_fields = ('comment',)
-    list_display = ('review_id', 'user', 'rating', 'review_date')
+    list_display = ('user', 'rating', 'review_date')
     list_filter = ('rating', 'review_date')
-    search_fields = ('review_id', 'user__username')
