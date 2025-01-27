@@ -1,52 +1,28 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
 
 
 class Review(models.Model):
-    """
-    Stores a single review entry related to :model:`auth.User`.
-    Each review includes a unique ID, a rating, an optional comment,
-    and the date the review was created. The review is associated with
-    a specific user who created it.
-    """
     review_id = models.CharField(
         primary_key=True,
         max_length=50,
-        editable=False
+        editable=False,
+        unique=True
     )
-    user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
-    comment = models.TextField(
-        blank=True,
-        null=True
-    )
-    review_date = models.DateTimeField(
-        auto_now_add=True
-    )
-
-    def clean(self):
-        """
-        Validates the comment field to ensure it does not exceed
-        the maximum allowed character length of 500.
-        """
-        super().clean()
-        if self.comment and len(self.comment) > 500:
-            raise ValidationError("Comment cannot exceed 500 characters.")
-
-    def save(self, *args, **kwargs):
-        """
-        Overrides save method to generate a unique review ID
-        prefixed with 'REV' and starting from 1.
-        """
-        if not self.review_id:
-            last_review = Review.objects.order_by('pk').last()
-            next_id = last_review.pk + 1 if last_review else 1
-            self.review_id = f"REV{next_id}"
-        super().save(*args, **kwargs)
+    comment = models.TextField(blank=True, null=True)
+    review_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Review {self.review_id} by {self.user.username}"
+
+
+@receiver(pre_save, sender=Review)
+def set_review_id(sender, instance, **kwargs):
+    if not instance.review_id:
+        last_review = Review.objects.order_by('review_id').last()
+        next_id = int(last_review.review_id.replace("REV", "")) + 1 if last_review else 1
+        instance.review_id = f"REV{next_id:03d}"
