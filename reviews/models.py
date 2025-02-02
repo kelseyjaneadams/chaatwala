@@ -11,6 +11,11 @@ class Review(models.Model):
         (5, "5 - Excellent"),
     )
 
+    STATUS_CHOICES = (
+        ("pending", "Pending"),
+        ("approved", "Approved"),
+    )
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE
@@ -18,6 +23,11 @@ class Review(models.Model):
     rating = models.IntegerField(choices=RATING_CHOICES)
     comment = models.TextField(blank=True, null=True)
     created_on = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=10,
+        choices=STATUS_CHOICES,
+        default="pending"
+    )
 
     def __str__(self):
         return (
