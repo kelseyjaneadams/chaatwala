@@ -4,7 +4,7 @@ from django.http import HttpResponse
 # Create your views here.
 def my_bookings(request):
     """Displays the bookings page with a booking form."""
-    return HttpResponse("Hello, Blog!")
+    return render(request, 'bookings/bookings.html')
 
 
 def menus_view(request):
