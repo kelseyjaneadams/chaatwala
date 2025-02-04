@@ -98,40 +98,10 @@ WSGI_APPLICATION = 'chaatwala_project.wsgi.application'
 #     }
 # }
 
-# Ensure DEVELOPMENT is properly interpreted
-DEVELOPMENT = os.environ.get("DEVELOPMENT", "False").lower() == "true"
 
-if DEVELOPMENT:
-    print("Using local SQLite database.")
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    print("Using PostgreSQL database.")
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
-
-if os.environ.get('DEVELOPMENT') == 'True':
-    print("Using local SQLite database.")
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-else:
-    print("Using production database.")
-    DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-    }
-
-# DATABASES = {
-#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
-# }
+DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
