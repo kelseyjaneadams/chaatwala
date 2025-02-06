@@ -1,1 +1,9 @@
 {% extends "base.html" %}
+{% block content %}
+<h2>Book a Table</h2>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}  <!-- Renders the form fields -->
+  <button type="submit">Submit Booking</button>
+</form>
+{% endblock %}
