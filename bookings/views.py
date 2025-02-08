@@ -13,7 +13,7 @@ def my_bookings(request):
 
 def menus_view(request):
     """Displays a simple placeholder for the menus page."""
-    return HttpResponse("<h1>Menus Page</h1>")
+    return render(request, 'bookings/menus.html')
 
 
 @login_required
