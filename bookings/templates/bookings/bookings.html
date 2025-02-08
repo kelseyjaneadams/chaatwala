@@ -1,9 +1,52 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Book a Table</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}  <!-- Renders the form fields -->
-  <button type="submit">Submit Booking</button>
-</form>
+
+<section class="container d-flex justify-content-center align-items-center form-container">
+    <div class="booking-form-wrapper">
+        <h2 class="text-center mb-4">Book a Table</h2>
+        <form method="post" class="booking-form">
+            {% csrf_token %}
+
+            <!-- Contact Name -->
+            <div class="form-group">
+                {{ form.contact_name.label_tag }}
+                {{ form.contact_name }}
+            </div>
+
+            <!-- Number of Guests -->
+            <div class="form-group">
+                {{ form.number_of_guests.label_tag }}
+                {{ form.number_of_guests }}
+            </div>
+
+            <!-- Booking Date -->
+            <div class="form-group">
+                {{ form.booking_date.label_tag }}
+                {{ form.booking_date }}
+            </div>
+
+            <!-- Time Selection: Hour & Minute (Side by Side) -->
+            <div class="form-group time-select-wrapper">
+                <div>
+                    {{ form.hour.label_tag }}
+                    {{ form.hour }}
+                </div>
+                <div>
+                    {{ form.minute.label_tag }}
+                    {{ form.minute }}
+                </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div class="form-group">
+                {{ form.special_request.label_tag }}
+                {{ form.special_request }}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Submit Booking</button>
+        </form>
+    </div>
+</section>
+
 {% endblock %}
