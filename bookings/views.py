@@ -4,6 +4,7 @@ from .forms import BookingForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
 def my_bookings(request):
     """Displays the bookings page with a booking form."""
     form = BookingForm()
