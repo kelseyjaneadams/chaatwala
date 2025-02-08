@@ -33,6 +33,14 @@ main {
     color: white;
 }
 
+.navbar-nav .nav-item .nav-link.active {
+    color: rgb(122, 107, 66);
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: rgb(122, 107, 66);
+}
+
 
 /* Footer */
 footer {
