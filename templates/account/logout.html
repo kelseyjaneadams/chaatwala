@@ -6,9 +6,9 @@
 <section class="container d-flex justify-content-center align-items-center 
     form-container">
     <div class="logout-form-wrapper">
-        <h2 class="text-center mb-4">{% trans "Sign Out" %}</h2>
+        <h2 class="text-center mb-4">{% trans "Log Out" %}</h2>
         <p class="text-center">
-            {% trans 'Are you sure you want to sign out?' %}
+            {% trans 'Are you sure you want to log out?' %}
         </p>
 
         <form method="post" action="{% url 'account_logout' %}" 
@@ -20,9 +20,9 @@
                     value="{{ redirect_field_value }}"/>
             {% endif %}
 
-            <button type="submit" class="btn btn-danger w-100" 
+            <button type="submit" class="btn btn-danger w-75 mx-auto d-block" 
                 aria-label="Confirm Sign Out">
-                {% trans 'Sign Out' %}
+                {% trans 'Log Out' %}
             </button>
         </form>
 
@@ -35,4 +35,3 @@
     </div>
 </section>
 {% endblock %}
-
