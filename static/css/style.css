@@ -52,11 +52,11 @@ main {
 
 .booking-form-wrapper {
     width: 100%;
-    max-width: 500px;  /* Prevents form from being too wide */
+    max-width: 500px;
     background: rgb(179, 173, 155);
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .booking-form input, 
@@ -67,7 +67,7 @@ main {
     border: 2px solid rgb(122, 107, 66);
     border-radius: 8px;
     font-size: 18px;
-    background-color: #f9f9f9; /* Light background like Mowgli */
+    background-color: #f9f9f9;
     transition: border-color 0.3s ease;
 }
 
@@ -94,7 +94,7 @@ main {
 }
 
 .booking-form button {
-    background-color: rgb(122, 107, 66); /* Adjust color as needed */
+    background-color: rgb(122, 107, 66);
     color: white;
     font-size: 18px;
     padding: 12px;
@@ -102,7 +102,6 @@ main {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    text-transform: uppercase;
     transition: background 0.3s ease-in-out;
 }
 
@@ -110,6 +109,40 @@ main {
     background-color: rgb(202, 152, 14);
 }
 
+/* Logout Form */
+.form-container {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-form-wrapper {
+    width: 100%;
+    max-width: 400px;
+    background: rgb(179, 173, 155);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logout-form button {
+    font-size: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.logout-form .btn-danger {
+    background-color: rgb(122, 107, 66);
+    color: #fff;
+}
+
+.logout-form .btn-danger:hover {
+    background-color: rgb(202, 152, 14);
+}
 
 /* Footer */
 footer {
