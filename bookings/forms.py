@@ -10,7 +10,7 @@ class BookingForm(forms.ModelForm):
     Excludes the confirmation status field.
     """
     HOUR_CHOICES = [
-        (hour, f"{hour:02}:00") for hour in range(12, 22)  # 12 PM to 9 PM
+        (hour, f"{hour:02}:00") for hour in range(12, 22)
     ]
     MINUTE_CHOICES = [
         (minute, f"{minute:02}") for minute in [0, 15, 30, 45]
@@ -25,9 +25,20 @@ class BookingForm(forms.ModelForm):
         label="Minute"
     )
 
+    booking_date = forms.DateField(
+    widget=forms.DateInput(
+        attrs={
+            "type": "date",
+            "class": "date-picker"
+        }
+    ),
+    label="Booking Date"
+)
+
+
     class Meta:
         model = Booking
-        exclude = ['booking_time', 'status', 'user']  # Excluding status and user (handled in views)
+        exclude = ['booking_time', 'status', 'user']
         fields = [
             'contact_name',
             'number_of_guests',
