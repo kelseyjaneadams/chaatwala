@@ -108,13 +108,6 @@ main {
 }
 
 /* Login Form */
-.login-form-container {
-    min-height: 80vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
 .login-form-wrapper {
     width: 100%;
     max-width: 400px;
