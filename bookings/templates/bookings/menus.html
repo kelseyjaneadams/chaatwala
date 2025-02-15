@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -70,59 +71,95 @@
 
 <!-- Customer Reviews Section -->
 <section class="container review-section mt-5" aria-labelledby="reviews-heading">
-    <h2 id="reviews-heading" class="text-center">Customer Reviews</h2>
+    <h2 id="reviews-heading" class="text-center">Reviews</h2>
 
     <div class="review-scroll" role="list">
-        <!-- Loop Through Approved Reviews -->
+        <!-- Loop Through Approved Reviews and Pending Reviews of the Logged-in User -->
         {% for review in reviews %}
-            <article class="review-box" 
-                     aria-labelledby="review-{{ review.id }}" 
-                     role="listitem">
-                
-                <!-- Profile Picture -->
-                <img src="{% if review.user.profile.image and review.user.profile.image.url %}
-                             {{ review.user.profile.image.url }}
-                         {% else %}
-                             https://res.cloudinary.com/dpbaudzgx/image/upload/profile_pics/default
-                         {% endif %}"
-                     alt="{{ review.user.username }}'s profile picture"
-                     class="review-profile">
-    
+            {% if review.status == "approved" or review.user == request.user %}
+                <article class="review-box" 
+                         aria-labelledby="review-{{ review.id }}" 
+                         role="listitem">
+                    
+                    <!-- Profile Picture -->
+                    <img src="{% if review.user.profile.image and review.user.profile.image.url %}
+                                 {{ review.user.profile.image.url }}
+                             {% else %}
+                                 https://res.cloudinary.com/dpbaudzgx/image/upload/profile_pics/default
+                             {% endif %}"
+                         alt="{{ review.user.username }}'s profile picture"
+                         class="review-profile">
 
-    
-                <div class="review-content">
-                    <p class="review-user">
-                        <strong id="review-{{ review.id }}">
-                            {{ review.user.username }}
-                        </strong>
-                        <span class="review-date">
-                            - <time datetime="{{ review.created_on|date:'Y-m-d' }}">
-                                {{ review.created_on|date:'M d, Y' }}
-                              </time>
-                        </span>
-                    </p>
+                    <div class="review-content">
+                        <p class="review-user">
+                            <strong id="review-{{ review.id }}">
+                                {{ review.user.username }}
+                            </strong>
+                            <span class="review-date">
+                                - <time datetime="{{ review.created_on|date:'Y-m-d' }}">
+                                    {{ review.created_on|date:'M d, Y' }}
+                                  </time>
+                            </span>
+                        </p>
 
-                    <!-- Star Ratings -->
-                    <p class="review-rating" aria-label="Rated {{ review.rating }} out of 5">
-                        {% for _ in "x"|rjust:review.rating %}
-                            <span aria-hidden="true">⭐</span>
-                        {% endfor %}
-                        <span class="visually-hidden">
-                            Rating: {{ review.rating }} out of 5
-                        </span>
-                    </p>
+                        <!-- Star Ratings -->
+                        <p class="review-rating" aria-label="Rated {{ review.rating }} out of 5">
+                            {% for _ in "x"|rjust:review.rating %}
+                                <span aria-hidden="true">⭐</span>
+                            {% endfor %}
+                            <span class="visually-hidden">
+                                Rating: {{ review.rating }} out of 5
+                            </span>
+                        </p>
 
-                    <!-- Comments -->
-                    <blockquote class="review-comment">
-                        {{ review.comment|default_if_none:"No comment provided."|striptags|linebreaksbr }}
-                    </blockquote>
-                </div>
-            </article>
+                        <!-- Show "Awaiting Approval" for Pending Reviews -->
+                        {% if review.status == "pending" and review.user == request.user %}
+                            <p class="approval-message">
+                                🕒 Your review is awaiting approval.
+                            </p>
+                        {% endif %}
+
+                        <!-- Comments -->
+                        <blockquote class="review-comment">
+                            {{ review.comment|default_if_none:"No comment provided."|striptags|linebreaksbr }}
+                        </blockquote>
+                    </div>
+                </article>
+            {% endif %}
         {% empty %}
             <p class="text-center">
                 No reviews yet. Be the first to leave a review!
             </p>
         {% endfor %}
+    </div>
+
+    <!-- Review Submission Form -->
+    <div class="review-form-wrapper mt-4">
+        <h3 class="text-center">How Did We Do?</h3>
+
+        {% if user.is_authenticated %}
+            <form method="post" action="" class="review-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    {{ form.rating|as_crispy_field }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.comment|as_crispy_field }}
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Submit Review
+                </button>
+            </form>
+        {% else %}
+            <p class="text-center mt-3">
+                <a href="{% url 'account_login' %}" class="btn btn-warning">
+                    Log in to leave a review
+                </a>
+            </p>
+        {% endif %}
     </div>
 </section>
 
