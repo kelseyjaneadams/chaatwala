@@ -16,19 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from bookings.views import menus_view
 from django.conf import settings
 from django.conf.urls.static import static
+from bookings.views import menus_view
 
 urlpatterns = [
-    path('', menus_view, name='home'),
+    path("", menus_view, name="home"),
     path("accounts/", include("allauth.urls")),
-    path('admin/', admin.site.urls),
-    path('summernote/', include('django_summernote.urls')),
-    path('reviews/', include('reviews.urls')),
-    path('bookings/', include('bookings.urls')),
-    path('profiles/', include('profiles.urls')),
+    path("admin/", admin.site.urls),
+    path("summernote/", include("django_summernote.urls")),
+    path("reviews/", include("reviews.urls")),
+    path("bookings/", include("bookings.urls")),
+    path("profiles/", include("profiles.urls")),
 ]
 
+# Serve static and media files in development
 if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

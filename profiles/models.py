@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
-# Create your models here.
+
 class Profile(models.Model):
     """
     Stores additional information about users, such as profile images.
@@ -10,11 +11,12 @@ class Profile(models.Model):
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE
-    )  # Links Profile to a single User
-    image = models.ImageField(
-        upload_to='profile_pics/',
-        default='profile_pics/default.jpg'
-    )  # Handles profile images
+    ) 
+
+    image = CloudinaryField(
+        "image",
+        default="profile_pics/default"
+    )
 
     def __str__(self):
         return f"{self.user.username}'s Profile"

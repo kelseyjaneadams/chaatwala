@@ -75,18 +75,21 @@
     <div class="review-scroll" role="list">
         <!-- Loop Through Approved Reviews -->
         {% for review in reviews %}
-            <article class="review-box" aria-labelledby="review-{{ review.id }}" role="listitem">
+            <article class="review-box" 
+                     aria-labelledby="review-{{ review.id }}" 
+                     role="listitem">
                 
                 <!-- Profile Picture -->
-                <img src="{% if review.user.profile.image %}
+                <img src="{% if review.user.profile.image and review.user.profile.image.url %}
                              {{ review.user.profile.image.url }}
                          {% else %}
-                             {% static 'media/profile_pics/default.jpg' %}
+                             https://res.cloudinary.com/dpbaudzgx/image/upload/profile_pics/default
                          {% endif %}"
                      alt="{{ review.user.username }}'s profile picture"
                      class="review-profile">
     
 
+    
                 <div class="review-content">
                     <p class="review-user">
                         <strong id="review-{{ review.id }}">
@@ -116,7 +119,9 @@
                 </div>
             </article>
         {% empty %}
-            <p class="text-center">No reviews yet. Be the first to leave a review!</p>
+            <p class="text-center">
+                No reviews yet. Be the first to leave a review!
+            </p>
         {% endfor %}
     </div>
 </section>
