@@ -1,14 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from reviews.models import Review
-from reviews.forms import ReviewForm
 from .forms import BookingForm
-
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from reviews.models import Review
 from reviews.forms import ReviewForm
-from .forms import BookingForm
 
 
 @login_required
@@ -31,17 +25,8 @@ def menus_view(request):
         user_pending_reviews = Review.objects.filter(user=request.user, status="pending")
         reviews = list(reviews) + list(user_pending_reviews)
 
-    # Handle Review Form Submission
-    if request.method == "POST":
-        form = ReviewForm(request.POST)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.user = request.user
-            review.status = "pending"
-            review.save()
-            return redirect("menus")
-    else:
-        form = ReviewForm()
+    
+    form = ReviewForm()
 
     return render(
         request,
@@ -54,7 +39,7 @@ def menus_view(request):
 def book_table(request):
     """
     Handles the booking form submission.
-    
+
     - GET request: Displays the form.
     - POST request: Validates and saves the booking.
     """
