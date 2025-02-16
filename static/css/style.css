@@ -455,6 +455,12 @@ footer {
     font-size: 12px;
 }
 
+.social-icons a {
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
 .social-icons i {
     color: rgb(122, 107, 66);
     font-size: 30px;
@@ -464,4 +470,9 @@ footer {
 .social-icons {
     text-align: center;
     padding: 30px;
+}
+
+.social-icons a:hover i {
+    color: rgb(202, 152, 14);
+    transform: scale(1.2);
 }
