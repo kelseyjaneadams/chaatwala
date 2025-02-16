@@ -78,6 +78,17 @@
         </div>
     </nav>
 
+    {% if messages %}
+    <div class="container-fluid message-banner">
+        {% for message in messages %}
+            <div class="alert alert-success text-center" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
     <main class="container mt-4">
         {% block content %}{% endblock %}
     </main>
@@ -99,6 +110,10 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
         crossorigin="anonymous"
     ></script>
+
+{% block extras %}
+<script src="{% static 'js/messages.js' %}"></script>
+{% endblock %}
 
 </body>
 </html>

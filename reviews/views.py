@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from reviews.models import Review
 from reviews.forms import ReviewForm
 
@@ -39,6 +40,8 @@ def submit_review(request):
             review.user = request.user
             review.status = "pending"
             review.save()
-            return redirect("menus")
+            messages.success(request, "Thanks for your feedback! Your review is pending approval.")
+        else:
+            messages.error(request, "There was an error submitting your review.")
 
     return redirect("menus")

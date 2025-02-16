@@ -40,6 +40,13 @@ main {
     color: rgb(122, 107, 66);
 }
 
+/* Message Banner */
+.container-fluid.message-banner .alert {
+    background-color: rgb(122, 107, 66);
+    color: white;
+    border: none;
+}
+
 /*  Hero Section */
 .hero-section {
     width: 100%;
