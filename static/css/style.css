@@ -153,6 +153,12 @@ main {
     color: #555;
 }
 
+.faded {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(70%);
+}
+
 .review-section .approval-message {
     font-size: 0.9rem;
     font-weight: bold;
