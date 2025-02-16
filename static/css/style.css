@@ -159,6 +159,26 @@ main {
     filter: grayscale(70%);
 }
 
+.custom-login-btn {
+    background-color: rgb(122, 107, 66);
+    border: none;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    transition: background 0.3s;
+}
+
+.custom-login-btn:hover,
+.custom-login-btn:focus {
+    background-color: rgb(202, 152, 14);
+    color: white;
+}
+
+.custom-login-btn:active {
+    color: white;
+}
+
 .review-section .approval-message {
     font-size: 0.9rem;
     font-weight: bold;
@@ -176,7 +196,7 @@ main {
 }
 
 .review-section .review-form button:hover {
-    background-color: rgb(100, 90, 55);
+    background-color: rgb(202, 152, 14);
 }
 
 /* Booking form */
