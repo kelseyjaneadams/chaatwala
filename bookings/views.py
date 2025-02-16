@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from reviews.models import Review
+from django.contrib import messages
+from .models import Booking
 from .forms import BookingForm
 from reviews.forms import ReviewForm
 
@@ -38,20 +40,29 @@ def menus_view(request):
 @login_required
 def book_table(request):
     """
-    Handles the booking form submission.
+    Handle the booking form submission.
 
-    - GET request: Displays the form.
-    - POST request: Validates and saves the booking.
+    - GET request: Display the form.
+    - POST request: Validate and save the booking.
     """
     if request.method == "POST":
         form = BookingForm(request.POST)
+
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
             booking.status = Booking.STATUS_PENDING
             booking.save()
-            return redirect("booking_success")
+
+            messages.success(
+                request,
+                "Your booking was successful. An email confirmation will be sent to your inbox shortly."
+            )
+            return redirect("bookings")
+
+        messages.error(request, "There was an error with your booking.")
+
     else:
         form = BookingForm()
 
-    return render(request, "booking_form.html", {"form": form})
+    return render(request, "bookings/bookings.html", {"form": form})

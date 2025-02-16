@@ -4,7 +4,7 @@
 <section class="container d-flex justify-content-center align-items-center form-container">
     <div class="booking-form-wrapper">
         <h2 class="text-center mb-4">Book a Table</h2>
-        <form method="post" class="booking-form">
+        <form method="post" action="{% url 'book_table' %}" class="booking-form">
             {% csrf_token %}
 
             <!-- Contact Name -->
