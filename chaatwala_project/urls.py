@@ -24,11 +24,11 @@ urlpatterns = [
     path("", menus_view, name="home"),
     path("menus/", menus_view, name="menus"),
     path("accounts/", include("allauth.urls")),
+    path("profiles/", include("profiles.urls")),
     path("admin/", admin.site.urls),
     path("summernote/", include("django_summernote.urls")),
     path("reviews/", include("reviews.urls")),
     path("bookings/", include("bookings.urls")),
-    path("profiles/", include("profiles.urls")),
 ]
 
 # Serve static and media files in development
