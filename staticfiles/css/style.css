@@ -444,6 +444,84 @@ main {
     text-decoration: underline;
 }
 
+/* Profile Section */
+.profile-container {
+    max-width: 800px;
+    margin: 50px auto;
+    background: rgb(179, 173, 155);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-image {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgb(122, 107, 66);
+    margin-bottom: 20px;
+}
+
+.profile-form {
+    max-width: 300px;
+    margin: auto;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 2px solid rgb(122, 107, 66);
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.profile-form input:focus {
+    border-color: rgb(202, 152, 14);
+    background-color: #fff;
+    outline: none;
+}
+
+.profile-form button {
+    background-color: rgb(122, 107, 66);
+    color: white;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+    width: 30%;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.profile-form button:hover {
+    background-color: rgb(202, 152, 14);
+}
+
+.custom-file input[type="file"] {
+    width: 100%;
+    cursor: pointer;
+}
+
+.custom-file label {
+    background-color: rgb(122, 107, 66);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.custom-file input[type="file"]:focus + label {
+    background-color: rgb(202, 152, 14);
+}
+
 /* Footer */
 footer {
     background-color: #000;
@@ -455,6 +533,12 @@ footer {
     font-size: 12px;
 }
 
+.social-icons a {
+    text-decoration: none;
+    display: inline-block;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
 .social-icons i {
     color: rgb(122, 107, 66);
     font-size: 30px;
@@ -464,4 +548,9 @@ footer {
 .social-icons {
     text-align: center;
     padding: 30px;
+}
+
+.social-icons a:hover i {
+    color: rgb(202, 152, 14);
+    transform: scale(1.2);
 }
