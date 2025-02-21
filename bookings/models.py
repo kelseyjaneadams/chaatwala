@@ -20,7 +20,7 @@ class Booking(models.Model):
         on_delete=models.CASCADE
     )
     contact_name = models.CharField(
-        max_length=50,
+        max_length=50
     )
     number_of_guests = models.IntegerField(
         choices=GUEST_CHOICES
@@ -40,6 +40,6 @@ class Booking(models.Model):
 
     def __str__(self):
         return (
-        f"Booking by {self.user.username} for "
-        f"{self.number_of_guests} guests"
-    )
+            f"Booking by {self.user.username} for "
+            f"{self.number_of_guests} guests on {self.booking_date} at {self.booking_time}"
+        )

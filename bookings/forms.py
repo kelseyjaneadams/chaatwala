@@ -1,6 +1,7 @@
 from django import forms
 from .models import Booking
 from collections import OrderedDict
+import datetime
 
 
 class BookingForm(forms.ModelForm):
@@ -27,7 +28,8 @@ class BookingForm(forms.ModelForm):
     widget=forms.DateInput(
         attrs={
             "type": "date",
-            "class": "date-picker"
+            "class": "date-picker",
+            "min": datetime.date.today().isoformat()
         }
     ),
     label="Booking Date"
