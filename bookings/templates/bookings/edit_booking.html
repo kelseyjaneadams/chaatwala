@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<section class="container d-flex justify-content-center align-items-center form-container">
+    <div class="booking-form-wrapper">
+        <h2 class="text-center mb-4">Edit Your Booking</h2>
+
+        <form method="post" action="{% url 'edit_booking' booking.id %}" class="booking-form">
+            {% csrf_token %}
+
+            <!-- Contact Name -->
+            <div class="form-group">
+                {{ form.contact_name.label_tag }}
+                {{ form.contact_name }}
+            </div>
+
+            <!-- Number of Guests -->
+            <div class="form-group">
+                {{ form.number_of_guests.label_tag }}
+                {{ form.number_of_guests }}
+            </div>
+
+            <!-- Booking Date -->
+            <div class="form-group">
+                {{ form.booking_date.label_tag }}
+                {{ form.booking_date }}
+            </div>
+
+            <!-- Time Selection: Hour & Minute -->
+            <div class="form-group time-select-wrapper edit-mode">
+                <div>
+                    {{ form.hour.label_tag }}
+                    <select name="hour" id="id_hour">
+                        {% for hour in form.fields.hour.choices %}
+                            <option value="{{ hour.0 }}" 
+                                {% if hour.0|stringformat:"s" == booking.booking_time|time:"g" %}selected{% endif %}>
+                                {{ hour.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    {{ form.minute.label_tag }}
+                    <select name="minute" id="id_minute">
+                        {% for minute in form.fields.minute.choices %}
+                            <option value="{{ minute.0 }}" 
+                                {% if minute.0|stringformat:"s" == booking.booking_time|time:"i" %}selected{% endif %}>
+                                {{ minute.1 }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+
+            <!-- Special Requests -->
+            <div class="form-group">
+                {{ form.special_request.label_tag }}
+                {{ form.special_request }}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100 mt-3">Update Booking</button>
+        </form>
+    </div>
+</section>
+
+{% endblock %}

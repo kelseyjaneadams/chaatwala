@@ -1,33 +1,39 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from reviews.models import Review
 from django.contrib import messages
 from .models import Booking
 from .forms import BookingForm
+from reviews.models import Review
 from reviews.forms import ReviewForm
 
 
 @login_required
 def my_bookings(request):
     """
-    Displays the bookings page with a booking form.
+    Displays the user's bookings along with the booking form.
     """
+    bookings = Booking.objects.filter(user=request.user).order_by("-booking_date")
     form = BookingForm()
-    return render(request, "bookings/bookings.html", {"form": form})
+    return render(
+        request,
+        "bookings/bookings.html",
+        {"form": form, "bookings": bookings},
+    )
 
 
 def menus_view(request):
     """
-    Display the menus page with approved reviews.
-    Users see their own pending reviews.
+    Displays the menu page along with approved reviews.
+    Users also see their own pending reviews.
     """
     reviews = Review.objects.filter(status="approved").order_by("-created_on")
 
     if request.user.is_authenticated:
-        user_pending_reviews = Review.objects.filter(user=request.user, status="pending")
+        user_pending_reviews = Review.objects.filter(
+            user=request.user, status="pending"
+        )
         reviews = list(reviews) + list(user_pending_reviews)
 
-    
     form = ReviewForm()
 
     return render(
@@ -40,10 +46,10 @@ def menus_view(request):
 @login_required
 def book_table(request):
     """
-    Handle the booking form submission.
+    Handles booking form submission.
 
-    - GET request: Display the form.
-    - POST request: Validate and save the booking.
+    - GET request: Displays the booking form.
+    - POST request: Validates and saves the booking.
     """
     if request.method == "POST":
         form = BookingForm(request.POST)
@@ -56,7 +62,8 @@ def book_table(request):
 
             messages.success(
                 request,
-                "Your booking was successful. An email confirmation will be sent to your inbox shortly."
+                "Your booking was successful. "
+                "An email confirmation will be sent to your inbox shortly."
             )
             return redirect("bookings")
 
@@ -66,3 +73,38 @@ def book_table(request):
         form = BookingForm()
 
     return render(request, "bookings/bookings.html", {"form": form})
+
+
+@login_required
+def edit_booking(request, booking_id):
+    """
+    Allows the user to edit an existing booking.
+    """
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+
+    if request.method == "POST":
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your booking has been updated successfully.")
+            return redirect("profile")
+    else:
+        form = BookingForm(instance=booking)
+
+    return render(request, "bookings/edit_booking.html", {"form": form, "booking": booking})
+
+
+
+@login_required
+def delete_booking(request, booking_id):
+    """
+    Deletes a user's booking after confirmation.
+    """
+    booking = get_object_or_404(Booking, id=booking_id, user=request.user)
+
+    if request.method == "POST":
+        booking.delete()
+        messages.success(request, "Your booking has been deleted.")
+        return redirect("profile")
+
+    return redirect("profile")

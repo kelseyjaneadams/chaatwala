@@ -10,7 +10,7 @@ class BookingForm(forms.ModelForm):
     Excludes the confirmation status field.
     """
     HOUR_CHOICES = [
-        (hour, f"{hour:02}:00") for hour in range(12, 22)
+        (hour, str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     ]
     MINUTE_CHOICES = [
         (minute, f"{minute:02}") for minute in [0, 15, 30, 45]
