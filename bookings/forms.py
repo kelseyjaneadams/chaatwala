@@ -9,20 +9,18 @@ class BookingForm(forms.ModelForm):
     Includes hour and minute dropdowns for selecting booking time.
     Excludes the confirmation status field.
     """
-    HOUR_CHOICES = [
-        (hour, str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    ]
-    MINUTE_CHOICES = [
-        (minute, f"{minute:02}") for minute in [0, 15, 30, 45]
-    ]
+    HOUR_CHOICES = [("", "")] + [(str(hour), str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
+    MINUTE_CHOICES = [("", "")] + [(str(minute), f"{minute:02}") for minute in [0, 15, 30, 45]]
 
     hour = forms.ChoiceField(
         choices=HOUR_CHOICES,
-        label="Hour"
+        label="Hour",
+        required=True
     )
     minute = forms.ChoiceField(
         choices=MINUTE_CHOICES,
-        label="Minute"
+        label="Minute",
+        required=True
     )
 
     booking_date = forms.DateField(
@@ -95,20 +93,18 @@ class CustomTimeForm(forms.ModelForm):
     Custom form for the Booking model to split the booking_time field
     into dropdowns for hours and minutes.
     """
-    HOUR_CHOICES = [
-        (hour, f"{hour:02}:00") for hour in range(12, 22)
-    ]
-    MINUTE_CHOICES = [
-        (minute, f"{minute:02}") for minute in [0, 15, 30, 45]
-    ]
+    HOUR_CHOICES = [("", "")] + [(str(hour), str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
+    MINUTE_CHOICES = [("", "")] + [(str(minute), f"{minute:02}") for minute in [0, 15, 30, 45]]
 
     hour = forms.ChoiceField(
         choices=HOUR_CHOICES,
-        label="Hour"
+        label="Hour",
+        required=True
     )
     minute = forms.ChoiceField(
         choices=MINUTE_CHOICES,
-        label="Minute"
+        label="Minute",
+        required=True
     )
 
     class Meta:

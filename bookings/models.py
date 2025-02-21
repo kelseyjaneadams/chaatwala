@@ -21,8 +21,6 @@ class Booking(models.Model):
     )
     contact_name = models.CharField(
         max_length=50,
-        blank=True,
-        null=True
     )
     number_of_guests = models.IntegerField(
         choices=GUEST_CHOICES
