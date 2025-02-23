@@ -192,6 +192,10 @@ main {
     color: rgb(122, 107, 66);
 }
 
+.custom-rating select.form-select {
+    width: 40%;
+}
+
 .review-form button {
     background-color: rgb(122, 107, 66);
     border: none;
@@ -520,6 +524,36 @@ main {
 
 .custom-file input[type="file"]:focus + label {
     background-color: rgb(202, 152, 14);
+}
+
+/* Update Booking/Review Profile Tables*/
+table.table thead.custom-table-head th {
+    background-color: rgb(122, 107, 66);
+    color: white;
+}
+
+.custom-edit-btn {
+    background-color: rgb(122, 107, 66);
+    color: white;
+    border: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.custom-edit-btn:hover {
+    background-color: rgb(202, 152, 14);
+    color: white;
+}
+
+.custom-delete-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.custom-delete-btn:hover {
+    background-color: #5a6268;
+    color: white;
 }
 
 /* Footer */

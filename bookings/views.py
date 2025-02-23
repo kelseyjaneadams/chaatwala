@@ -79,19 +79,28 @@ def book_table(request):
 def edit_booking(request, booking_id):
     """
     Allows the user to edit an existing booking.
+    Updates the booking status to 'PENDING' upon modification.
     """
     booking = get_object_or_404(Booking, id=booking_id, user=request.user)
 
     if request.method == "POST":
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Your booking has been updated successfully.")
+            updated_booking = form.save(commit=False)
+            updated_booking.status = "PENDING"
+            updated_booking.save()
+            messages.success(
+                request, "Your booking has been updated and is now pending approval."
+            )
             return redirect("profile")
     else:
         form = BookingForm(instance=booking)
 
-    return render(request, "bookings/edit_booking.html", {"form": form, "booking": booking})
+    return render(
+        request,
+        "bookings/edit_booking.html",
+        {"form": form, "booking": booking},
+    )
 
 
 

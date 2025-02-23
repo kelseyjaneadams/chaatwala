@@ -1,35 +1,39 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
+
 {% block content %}
 
 <section class="container profile-container">
-    <h2 class="text-center">Your Profile</h2>
+    <h2 class="text-center my-4">Your Profile</h2>
 
     <div class="row align-items-center">
         <!-- Left: Profile Image -->
         <div class="col-md-6 text-center">
-            <img 
-                src="{{ profile.image.url }}" 
-                alt="Profile Picture" 
-                class="img-fluid rounded-circle profile-image"
-                width="250" 
-                height="250">
+            <figure>
+                <img 
+                    src="{{ profile.image.url }}" 
+                    alt="User's profile picture" 
+                    class="img-fluid rounded-circle profile-image"
+                    width="250" 
+                    height="250">
+                <figcaption class="text-muted">Profile Picture</figcaption>
+            </figure>
         </div>
 
         <!-- Right: Profile Image Upload Form -->
         <div class="col-md-6">
             <form method="post" enctype="multipart/form-data" class="profile-form">
                 {% csrf_token %}
-
+                
                 <div class="form-group">
-                    <label for="{{ form.image.id_for_label }}">Upload New Profile Picture</label>
+                    <label for="{{ form.image.id_for_label }}" class="form-label">
+                        Upload New Profile Picture
+                    </label>
                     
-                    <!-- File Input -->
                     <div class="custom-file">
                         {{ form.image }}
                     </div>
 
-                    <!-- Show current image filename (only if an image exists) -->
                     {% if profile.image %}
                         <small class="text-muted">Currently: {{ profile.image }}</small>
                     {% endif %}
@@ -40,13 +44,15 @@
         </div>
     </div>
 
-    <!-- Bookings Section -->
-    <div class="mt-5">
-        <h3>Your Bookings</h3>
+<!-- Bookings Section -->
+<section class="mt-5">
+    <h3 class="text-center">Your Bookings</h3>
 
-        {% if bookings %}
+    {% if bookings %}
+        <!-- Wrap table in a responsive container -->
+        <div class="table-responsive">
             <table class="table table-striped text-center">
-                <thead class="thead-dark">
+                <thead class="custom-table-head">
                     <tr>
                         <th>Date</th>
                         <th>Time</th>
@@ -69,42 +75,41 @@
                                         {{ hour }}{% if minute != 0 %}:{{ minute }}{% endif %}pm
                                     {% endif %}
                                 {% endwith %}
-                            </td>                                                                                                                                                                                   
+                            </td>
                             <td>{{ booking.number_of_guests }}</td>
                             <td class="{% if booking.status == 'CONFIRMED' %}text-success{% elif booking.status == 'CANCELLED' %}text-danger{% else %}text-warning{% endif %}">
                                 {{ booking.get_status_display }}
                             </td>
                             <td>
-                                <!-- Updated Edit Button to Redirect to Edit Page -->
-                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning">
+                                <!-- Edit Button -->
+                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning custom-edit-btn">
                                     Edit
                                 </a>
 
-                                <!-- Delete Booking Form -->
-                                <form method="post" action="{% url 'delete_booking' booking.id %}" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Are you sure you want to delete this booking?');">
-                                        Delete
-                                    </button>
-                                </form>
+                                <!-- Delete Button - Opens Bootstrap Modal -->
+                                <button type="button" class="btn btn-sm btn-danger custom-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteBookingModal{{ booking.id }}">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <p>No bookings found.</p>
-        {% endif %}
-    </div>
+        </div> <!-- End of table-responsive -->
+    {% else %}
+        <p class="text-center">No bookings found.</p>
+    {% endif %}
+</section>
 
-    <!-- Reviews Section -->
-    <div class="mt-5">
-        <h3>Your Reviews</h3>
+<!-- Reviews Section -->
+<section class="mt-5">
+    <h3 class="text-center">Your Reviews</h3>
 
-        {% if reviews %}
+    {% if reviews %}
+        <!-- Wrap table in a responsive container -->
+        <div class="table-responsive">
             <table class="table table-striped text-center">
-                <thead class="thead-dark">
+                <thead class="custom-table-head">
                     <tr>
                         <th>Date</th>
                         <th>Rating</th>
@@ -116,27 +121,31 @@
                     {% for review in reviews %}
                         <tr>
                             <td>{{ review.created_on|date:"F j, Y" }}</td>
-                            <td>{{ review.rating }} ⭐</td>
+                            <td>
+                                {% for _ in "x"|rjust:review.rating %}
+                                    <span class="text-warning">★</span>
+                                {% endfor %}
+                            </td>
                             <td>{{ review.comment }}</td>
                             <td>
-                                <a href="{% url 'edit_review' review.id %}" class="btn btn-sm btn-warning">Edit</a>
-                                <form method="post" action="{% url 'delete_review' review.id %}" class="d-inline">
-                                    {% csrf_token %}
-                                    <button type="submit" class="btn btn-sm btn-danger"
-                                        onclick="return confirm('Are you sure you want to delete this review?');">
-                                        Delete
-                                    </button>
-                                </form>
+                                <a href="{% url 'edit_review' review.id %}" class="btn btn-sm btn-warning custom-edit-btn">
+                                    Edit
+                                </a>
+
+                                <!-- Delete Button for Reviews -->
+                                <button type="button" class="btn btn-sm btn-danger custom-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteReviewModal{{ review.id }}">
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <p>No reviews found.</p>
-        {% endif %}
-    </div>
-
+        </div> <!-- End of table-responsive -->
+    {% else %}
+        <p class="text-center">No reviews found.</p>
+    {% endif %}
 </section>
+
 
 {% endblock %}

@@ -27,7 +27,6 @@ def profile_view(request):
     else:
         form = ProfileImageForm(instance=profile)
 
-    # Fetch user bookings and reviews
     bookings = Booking.objects.filter(user=request.user).order_by('-booking_date')
     reviews = Review.objects.filter(user=request.user).order_by('-created_on')
 

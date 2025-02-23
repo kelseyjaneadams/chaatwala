@@ -64,7 +64,6 @@ def edit_review(request, review_id):
             form.save()
             messages.success(request, "Your review has been updated successfully.")
             return redirect("profile")
-
     else:
         form = ReviewForm(instance=review)
 
