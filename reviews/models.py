@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 
 
 class Review(models.Model):
+    """ Model representing user reviews. """
+
     RATING_CHOICES = (
         (1, "1 - Very Poor"),
         (2, "2 - Poor"),
@@ -11,9 +13,12 @@ class Review(models.Model):
         (5, "5 - Excellent"),
     )
 
+    STATUS_PENDING = "pending"
+    STATUS_APPROVED = "approved"
+
     STATUS_CHOICES = (
-        ("pending", "Pending"),
-        ("approved", "Approved"),
+        (STATUS_PENDING, "Pending"),
+        (STATUS_APPROVED, "Approved"),
     )
 
     user = models.ForeignKey(
@@ -21,16 +26,23 @@ class Review(models.Model):
         on_delete=models.CASCADE
     )
     rating = models.IntegerField(choices=RATING_CHOICES)
-    comment = models.TextField(blank=False, null=False)
+    comment = models.TextField(blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=10,
         choices=STATUS_CHOICES,
-        default="pending"
+        default=STATUS_PENDING
     )
 
+    def save(self, *args, **kwargs):
+        """ If an approved review is updated, reset status to pending. """
+        if self.pk:
+            original_review = Review.objects.get(pk=self.pk)
+            if original_review.status == self.STATUS_APPROVED:
+                self.status = self.STATUS_PENDING
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return (
-            f"Review by {self.user.username} "
-            f"with rating {self.rating}"
-        )
+        """ String representation of the review. """
+        return f"Review by {self.user.username} with rating {self.rating}"

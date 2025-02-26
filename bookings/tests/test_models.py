@@ -82,3 +82,11 @@ class BookingModelTest(TestCase):
             past_booking.full_clean()
 
         self.assertIn("You cannot book a date in the past.", str(context.exception))
+
+    def test_confirmed_booking_resets_to_pending_on_update(self):
+        """Test that updating a confirmed booking changes status to 'PENDING'."""
+        self.booking.booking_date = date(2025, 3, 20)
+        self.booking.save()
+
+        self.booking.refresh_from_db()
+        self.assertEqual(self.booking.status, Booking.STATUS_PENDING)
