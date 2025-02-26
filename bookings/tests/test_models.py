@@ -67,3 +67,18 @@ class BookingModelTest(TestCase):
         """Test that deleting a user also deletes their bookings."""
         self.user.delete()
         self.assertEqual(Booking.objects.count(), 0)
+
+    def test_booking_date_cannot_be_in_the_past(self):
+        """Test that booking a past date raises a validation error."""
+        past_booking = Booking(
+            user=self.user,
+            contact_name="Past Booking",
+            number_of_guests=2,
+            booking_date=date(2023, 1, 1),
+            booking_time=time(18, 0)
+        )
+
+        with self.assertRaises(ValidationError) as context:
+            past_booking.full_clean()
+
+        self.assertIn("You cannot book a date in the past.", str(context.exception))

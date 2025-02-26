@@ -1,16 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.utils.timezone import now
 
 
 class Booking(models.Model):
-    STATUS_PENDING = 'PENDING'
-    STATUS_CONFIRMED = 'CONFIRMED'
-    STATUS_CANCELLED = 'CANCELLED'
+    """ Model representing a table booking. """
+
+    STATUS_PENDING = "PENDING"
+    STATUS_CONFIRMED = "CONFIRMED"
+    STATUS_CANCELLED = "CANCELLED"
 
     STATUS_CHOICES = [
-        (STATUS_PENDING, 'Pending'),
-        (STATUS_CONFIRMED, 'Confirmed'),
-        (STATUS_CANCELLED, 'Cancelled'),
+        (STATUS_PENDING, "Pending"),
+        (STATUS_CONFIRMED, "Confirmed"),
+        (STATUS_CANCELLED, "Cancelled"),
     ]
 
     GUEST_CHOICES = [(i, str(i)) for i in range(1, 7)]
@@ -20,7 +24,8 @@ class Booking(models.Model):
         on_delete=models.CASCADE
     )
     contact_name = models.CharField(
-        max_length=50
+        max_length=50,
+        blank=False
     )
     number_of_guests = models.IntegerField(
         choices=GUEST_CHOICES
@@ -38,8 +43,19 @@ class Booking(models.Model):
         default=STATUS_PENDING
     )
 
+    def clean(self):
+        """ Validate that booking date is not in the past. """
+        if self.booking_date and self.booking_date < now().date():
+            raise ValidationError("You cannot book a date in the past.")
+
+    def save(self, *args, **kwargs):
+        """ Override save method to validate before saving. """
+        self.clean()
+        super().save(*args, **kwargs)
+
     def __str__(self):
+        """ String representation of the booking. """
         return (
-            f"Booking by {self.user.username} for "
-            f"{self.number_of_guests} guests on {self.booking_date} at {self.booking_time}"
+            f"Booking by {self.user.username} for {self.number_of_guests} guests "
+            f"on {self.booking_date} at {self.booking_time}"
         )

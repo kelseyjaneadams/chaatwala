@@ -9,13 +9,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Meta tags for SEO and Accessibility -->
+    <meta name="description" content="Chaatwala. Authentic Indian street food with bold flavors, fresh ingredients, and a vibrant dining experience." />
+    <meta name="keywords" content="Indian street food, chaat, pani puri, samosa, dosa, masala chai, Indian restaurant, authentic Indian flavors, street food." />
+    <meta name="author" content="Chaatwala Team" />
+
     <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
-    <link rel="manifest" href="static/favicon/site.webmanifest">
-    
-    
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+
     <title>{% block title %}Chaatwala{% endblock %}</title>
 
     <!-- Bootstrap CSS -->
@@ -47,6 +52,7 @@
         rel="stylesheet"
     >
 
+    <!-- Custom CSS -->
     <link 
         rel="stylesheet" 
         href="{% static 'css/style.css' %}"
@@ -56,37 +62,47 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-xl">
+<nav class="navbar navbar-expand-xl" role="navigation">
     <div class="container-fluid">
         <!-- Center: Logo -->
-        <a class="navbar-brand mx-auto position-absolute start-50 translate-middle-x" href="/">
-            <img src="{% static 'images/chaatwala-logo.svg' %}" 
-                 alt="Chaatwala Logo" 
-                 height="40">
+        <a class="navbar-brand mx-auto position-absolute start-50 translate-middle-x" href="/" aria-label="Chaatwala Home">
+            <img 
+                src="{% static 'images/chaatwala-logo.svg' %}" 
+                alt="Chaatwala Logo" 
+                height="40"
+            >
         </a>
 
         <!-- Right: Nav Links & Burger Menu -->
-        <button class="navbar-toggler ms-auto" 
-                type="button" 
-                data-bs-toggle="collapse" 
-                data-bs-target="#navbarNav" 
-                aria-controls="navbarNav" 
-                aria-expanded="false" 
-                aria-label="Toggle navigation">
+        <button 
+            class="navbar-toggler ms-auto" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarNav" 
+            aria-controls="navbarNav" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+        >
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/' %}active{% endif %}" 
-                       href="{% url 'home' %}">
+                    <a 
+                        class="nav-link {% if request.path == '/' %}active{% endif %}" 
+                        href="{% url 'home' %}" 
+                        aria-label="View our menus"
+                    >
                         Menus
                     </a>
                 </li>                    
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == '/bookings/' %}active{% endif %}" 
-                       href="{% url 'bookings' %}">
+                    <a 
+                        class="nav-link {% if request.path == '/bookings/' %}active{% endif %}" 
+                        href="{% url 'bookings' %}" 
+                        aria-label="Book a table"
+                    >
                         Book a Table
                     </a>
                 </li>
@@ -94,27 +110,39 @@
                 <!-- Show Profile link only if user is logged in -->
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == '/profiles/' %}active{% endif %}" 
-                           href="{% url 'profile' %}">
+                        <a 
+                            class="nav-link {% if request.path == '/profiles/' %}active{% endif %}" 
+                            href="{% url 'profile' %}" 
+                            aria-label="View your profile"
+                        >
                             Profile
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %}active{% endif %}" 
-                           href="{{ logout_url }}">
+                        <a 
+                            class="nav-link {% if request.path == logout_url %}active{% endif %}" 
+                            href="{{ logout_url }}" 
+                            aria-label="Logout of your account"
+                        >
                             Logout
                         </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %}active{% endif %}" 
-                           href="{{ signup_url }}">
+                        <a 
+                            class="nav-link {% if request.path == signup_url %}active{% endif %}" 
+                            href="{{ signup_url }}" 
+                            aria-label="Register a new account"
+                        >
                             Register
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %}active{% endif %}" 
-                           href="{{ login_url }}">
+                        <a 
+                            class="nav-link {% if request.path == login_url %}active{% endif %}" 
+                            href="{{ login_url }}" 
+                            aria-label="Login to your account"
+                        >
                             Login
                         </a>
                     </li>
@@ -124,56 +152,55 @@
     </div>
 </nav>
 
+<!-- Flash Messages -->
+{% if messages %}
+    <div class="container-fluid message-banner">
+        {% for message in messages %}
+            <div class="alert alert-success text-center" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
 
-    <!-- Flash Messages -->
-    {% if messages %}
-        <div class="container-fluid message-banner">
-            {% for message in messages %}
-                <div class="alert alert-success text-center" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+<!-- Main Content -->
+<main class="container mt-4">
+    {% block content %}{% endblock %}
+</main>
 
-    <!-- Main Content -->
-    <main class="container mt-4">
-        {% block content %}{% endblock %}
-    </main>
+<!-- Footer -->
+<footer class="text-center p-3 mt-4 text-white">
+    <!-- Social Media -->
+    <p class="m-0 text-center social-icons"> 
+        <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook-square ms-3"></i>
+        </a>
+        <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
+            <i class="fab fa-twitter-square ms-3"></i>
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram-square ms-3"></i>
+        </a>
+        <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube">
+            <i class="fab fa-youtube-square ms-3"></i>
+        </a>
+        <a href="https://www.tiktok.com/" target="_blank" aria-label="TikTok">
+            <i class="fab fa-tiktok ms-3"></i>
+        </a>
+    </p>
+    <p class="copy">© 2024 Chaatwala</p>
+</footer>
 
-    <!-- Footer -->
-    <footer class="text-center p-3 mt-4 text-white">
-        <!-- Social Media -->
-        <p class="m-0 text-center social-icons"> 
-            <a href="https://www.facebook.com/" target="_blank" aria-label="Facebook">
-                <i class="fab fa-facebook-square ms-3"></i>
-            </a>
-            <a href="https://twitter.com/" target="_blank" aria-label="Twitter">
-                <i class="fab fa-twitter-square ms-3"></i>
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" aria-label="Instagram">
-                <i class="fab fa-instagram-square ms-3"></i>
-            </a>
-            <a href="https://www.youtube.com/" target="_blank" aria-label="YouTube">
-                <i class="fab fa-youtube-square ms-3"></i>
-            </a>
-            <a href="https://www.tiktok.com/" target="_blank" aria-label="TikTok">
-                <i class="fab fa-tiktok ms-3"></i>
-            </a>
-        </p>
-        <p class="copy">© 2024 Chaatwala</p>
-    </footer>
+<!-- Bootstrap JavaScript -->
+<script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
+    crossorigin="anonymous"
+></script>
 
-    <!-- Bootstrap JavaScript -->
-    <script 
-        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
-        crossorigin="anonymous"
-    ></script>
-
-    {% block extras %}
-        <script src="{% static 'js/messages.js' %}"></script>
-    {% endblock %}
+{% block extras %}
+    <script src="{% static 'js/messages.js' %}"></script>
+{% endblock %}
 
 </body>
 </html>
