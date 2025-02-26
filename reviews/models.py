@@ -26,7 +26,7 @@ class Review(models.Model):
         on_delete=models.CASCADE
     )
     rating = models.IntegerField(choices=RATING_CHOICES)
-    comment = models.TextField(blank=False)
+    comment = models.CharField(blank=False, max_length=500)
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
         max_length=10,

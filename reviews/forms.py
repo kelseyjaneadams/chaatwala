@@ -9,6 +9,7 @@ class ReviewForm(forms.ModelForm):
     """
 
     comment = forms.CharField(
+        max_length=500,
         widget=forms.Textarea(
             attrs={
                 "class": "form-control",
