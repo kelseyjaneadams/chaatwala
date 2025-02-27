@@ -46,7 +46,7 @@ class ReviewFormTest(TestCase):
         form = ReviewForm()
         self.assertEqual(
             form.fields["comment"].widget.attrs["placeholder"],
-            "Write your review here..."
+            "Write your review here... (Max 500 characters)",
         )
         self.assertEqual(
             form.fields["comment"].widget.attrs["aria-label"],

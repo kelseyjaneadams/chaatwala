@@ -14,7 +14,7 @@ class ReviewForm(forms.ModelForm):
             attrs={
                 "class": "form-control",
                 "rows": 3,
-                "placeholder": "Write your review here...",
+                "placeholder": "Write your review here... (Max 500 characters)",
                 "aria-label": "Review Comment",
             }
         ),
