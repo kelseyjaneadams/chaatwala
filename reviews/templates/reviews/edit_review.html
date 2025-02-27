@@ -6,26 +6,27 @@
     <h2 id="edit-review-heading" class="text-center">Edit Your Review</h2>
 
     <div class="review-form-wrapper mt-4">
-    
-        <form method="post" action="{% url 'edit_review' review.id %}" class="review-form">
+        <form method="post" action="{% url 'edit_review' review.id %}" class="review-form" aria-label="Edit review form">
             {% csrf_token %}
 
             <div class="form-group custom-rating">
+                <label for="{{ form.rating.id_for_label }}" class="form-label">Your Rating</label>
                 {{ form.rating|as_crispy_field }}
             </div>
 
             <div class="form-group">
+                <label for="{{ form.comment.id_for_label }}" class="form-label">Your Comment</label>
                 {{ form.comment|as_crispy_field }}
             </div>
 
-            <button type="submit" class="btn btn-primary w-25 mx-auto d-block">
+            <button type="submit" class="btn btn-primary w-25 mx-auto d-block" aria-label="Update your review">
                 Update
             </button>
         </form>
 
         <!-- Cancel Button -->
         <div class="text-center mt-3">
-            <a href="{% url 'profile' %}" class="btn btn-secondary">
+            <a href="{% url 'profile' %}" class="btn btn-secondary" aria-label="Cancel and return to profile">
                 Cancel
             </a>
         </div>

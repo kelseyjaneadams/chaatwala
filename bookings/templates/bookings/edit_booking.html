@@ -7,32 +7,38 @@
     <div class="booking-form-wrapper">
         <h2 class="text-center mb-4">Edit Your Booking</h2>
 
-        <form method="post" action="{% url 'edit_booking' booking.id %}" class="booking-form">
+        <form method="post" action="{% url 'edit_booking' booking.id %}" class="booking-form" aria-labelledby="edit-booking-heading">
             {% csrf_token %}
 
             <!-- Contact Name -->
             <div class="form-group">
-                {{ form.contact_name.label_tag }}
+                <label for="{{ form.contact_name.id_for_label }}" class="form-label">
+                    Contact Name
+                </label>
                 {{ form.contact_name }}
             </div>
 
             <!-- Number of Guests -->
             <div class="form-group">
-                {{ form.number_of_guests.label_tag }}
+                <label for="{{ form.number_of_guests.id_for_label }}" class="form-label">
+                    Number of Guests
+                </label>
                 {{ form.number_of_guests }}
             </div>
 
             <!-- Booking Date -->
             <div class="form-group">
-                {{ form.booking_date.label_tag }}
+                <label for="{{ form.booking_date.id_for_label }}" class="form-label">
+                    Booking Date
+                </label>
                 {{ form.booking_date }}
             </div>
 
             <!-- Time Selection: Hour & Minute -->
             <div class="form-group time-select-wrapper edit-mode">
                 <div>
-                    {{ form.hour.label_tag }}
-                    <select name="hour" id="id_hour">
+                    <label for="id_hour" class="form-label">Hour</label>
+                    <select name="hour" id="id_hour" class="form-control" aria-label="Select booking hour">
                         {% for hour in form.fields.hour.choices %}
                             <option value="{{ hour.0 }}" 
                                 {% if hour.0|stringformat:"s" == booking.booking_time|time:"g" %}selected{% endif %}>
@@ -42,8 +48,8 @@
                     </select>
                 </div>
                 <div>
-                    {{ form.minute.label_tag }}
-                    <select name="minute" id="id_minute">
+                    <label for="id_minute" class="form-label">Minute</label>
+                    <select name="minute" id="id_minute" class="form-control" aria-label="Select booking minute">
                         {% for minute in form.fields.minute.choices %}
                             <option value="{{ minute.0 }}" 
                                 {% if minute.0|stringformat:"s" == booking.booking_time|time:"i" %}selected{% endif %}>
@@ -54,15 +60,18 @@
                 </div>
             </div>
 
-
             <!-- Special Requests -->
             <div class="form-group">
-                {{ form.special_request.label_tag }}
+                <label for="{{ form.special_request.id_for_label }}" class="form-label">
+                    Special Requests
+                </label>
                 {{ form.special_request }}
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-100 mt-3">Update Booking</button>
+            <button type="submit" class="btn btn-primary w-100 mt-3" aria-label="Update booking">
+                Update Booking
+            </button>
         </form>
     </div>
 </section>

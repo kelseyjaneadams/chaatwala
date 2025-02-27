@@ -4,47 +4,62 @@
 <section class="container d-flex justify-content-center align-items-center form-container">
     <div class="booking-form-wrapper">
         <h2 class="text-center mb-4">Book a Table</h2>
-        <form method="post" action="{% url 'book_table' %}" class="booking-form">
+
+        <form method="post" action="{% url 'book_table' %}" class="booking-form" aria-labelledby="booking-form-heading">
             {% csrf_token %}
 
             <!-- Contact Name -->
             <div class="form-group">
-                {{ form.contact_name.label_tag }}
+                <label for="{{ form.contact_name.id_for_label }}" class="form-label">
+                    Contact Name
+                </label>
                 {{ form.contact_name }}
             </div>
 
             <!-- Number of Guests -->
             <div class="form-group">
-                {{ form.number_of_guests.label_tag }}
+                <label for="{{ form.number_of_guests.id_for_label }}" class="form-label">
+                    Number of Guests
+                </label>
                 {{ form.number_of_guests }}
             </div>
 
-             <!-- Booking Date with Date Picker -->
-             <div class="form-group">
-                {{ form.booking_date.label_tag }}
+            <!-- Booking Date with Date Picker -->
+            <div class="form-group">
+                <label for="{{ form.booking_date.id_for_label }}" class="form-label">
+                    Booking Date
+                </label>
                 {{ form.booking_date }}
             </div>
 
             <!-- Time Selection: Hour & Minute (Side by Side) -->
             <div class="form-group time-select-wrapper">
                 <div>
-                    {{ form.hour.label_tag }}
+                    <label for="{{ form.hour.id_for_label }}" class="form-label">
+                        Hour
+                    </label>
                     {{ form.hour }}
                 </div>
                 <div>
-                    {{ form.minute.label_tag }}
+                    <label for="{{ form.minute.id_for_label }}" class="form-label">
+                        Minute
+                    </label>
                     {{ form.minute }}
                 </div>
             </div>
 
             <!-- Special Requests -->
             <div class="form-group">
-                {{ form.special_request.label_tag }}
+                <label for="{{ form.special_request.id_for_label }}" class="form-label">
+                    Special Requests
+                </label>
                 {{ form.special_request }}
             </div>
 
             <!-- Submit Button -->
-            <button type="submit">Submit Booking</button>
+            <button type="submit" class="btn btn-primary mt-3" aria-label="Submit Booking">
+                Submit Booking
+            </button>
         </form>
     </div>
 </section>

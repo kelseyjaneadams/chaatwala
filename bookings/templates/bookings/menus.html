@@ -113,6 +113,11 @@
                             </span>
                         </p>
 
+                        <!-- Review Status -->
+                        <p class="review-status">
+                            Status: {{ review.status|capfirst }}
+                        </p>
+
                         <!-- Show "Awaiting Approval" for Pending Reviews -->
                         {% if review.status == "pending" and review.user == request.user %}
                             <p class="approval-message">
@@ -143,20 +148,22 @@
                 {% csrf_token %}
     
                 <div class="form-group custom-rating">
+                    <label for="{{ form.rating.id_for_label }}" class="form-label">Your Rating</label>
                     {{ form.rating|as_crispy_field }}
                 </div>
     
                 <div class="form-group">
+                    <label for="{{ form.comment.id_for_label }}" class="form-label">Your Comment</label>
                     {{ form.comment|as_crispy_field }}
                 </div>
     
-                <button type="submit" class="btn btn-primary w-25 d-block mx-auto">
+                <button type="submit" class="btn btn-primary w-25 d-block mx-auto" aria-label="Submit your review">
                     Submit Review
                 </button>
             </form>
         {% else %}
             <p class="text-center mt-3">
-                <a href="{% url 'account_login' %}" class="btn custom-login-btn">
+                <a href="{% url 'account_login' %}" class="btn custom-login-btn" aria-label="Log in to leave a review">
                     Log in to leave a review
                 </a>
             </p>

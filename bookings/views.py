@@ -62,8 +62,7 @@ def book_table(request):
 
             messages.success(
                 request,
-                "Your booking was successful. "
-                "An email confirmation will be sent to your inbox shortly."
+                "Your booking was successful."
             )
             return redirect("bookings")
 
