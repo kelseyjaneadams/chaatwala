@@ -113,11 +113,6 @@
                             </span>
                         </p>
 
-                        <!-- Review Status -->
-                        <p class="review-status">
-                            Status: {{ review.status|capfirst }}
-                        </p>
-
                         <!-- Show "Awaiting Approval" for Pending Reviews -->
                         {% if review.status == "pending" and review.user == request.user %}
                             <p class="approval-message">
