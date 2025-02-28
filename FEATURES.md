@@ -52,5 +52,46 @@ When a user signs up/logs in then the following pages appear on the Navbar:
 - Profile Page
 - Log Out Page
 
+The Navbar has a logo of the Restauraunt.
+
+The Navabar also turns into a Burger on smaller screens. 
+
+![Navbar](documentation/features/navbar-burger.png)
+
+
+
+The design of the Navbar is kept simple so the User can easily navigate their way through the website.
+
 ## Logo 
 ![Logo](documentation/features/logo.png)
+
+This logo when clicked redirects to the Home/Menu Page.
+
+## Footer
+![Footer](documentation/features/footer.png)
+
+The Footer has 5 Social Media links which take the User to the relevant Social Media page in a new tab once clicked.
+
+## Hero Image
+![Hero](documentation/features/hero-image.png)
+
+The Hero image displays the inside of the restuaraunt to the User so they can get a feel for the aesthetic.
+
+## Menu Title 
+![MenuTitle](documentation/features/menu-title.png)
+
+The Menu title communicates to the User the beginning of the Menu section.
+
+## Menus 
+![Menus](documentation/features/menu-choices.png)
+
+There are 4 Menu Options:
+- Food Menu
+- Drinks Menu
+- Kids Menu
+- Sweet Menu
+
+The Menu choices, once clicked, open the Menu images in a new tab so the User can review the food and drink options.
+
+
+
