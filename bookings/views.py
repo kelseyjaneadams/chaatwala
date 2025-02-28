@@ -62,7 +62,7 @@ def book_table(request):
 
             messages.success(
                 request,
-                "Your booking was successful."
+                "Thanks for booking with us! Your booking is pending approval."
             )
             return redirect("bookings")
 

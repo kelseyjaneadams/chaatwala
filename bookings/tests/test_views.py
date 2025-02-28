@@ -76,7 +76,7 @@ class BookingViewsTest(TestCase):
         response = self.client.post(reverse("book_table"), data=form_data, follow=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Your booking was successful.")
+        self.assertContains(response, "Thanks for booking with us! Your booking is pending approval.")
         self.assertEqual(Booking.objects.count(), 2)
 
     def test_book_table_invalid(self):
