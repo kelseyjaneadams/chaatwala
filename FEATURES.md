@@ -91,7 +91,51 @@ There are 4 Menu Options:
 - Kids Menu
 - Sweet Menu
 
+On Mobile screens the Menu Choices are displayed in two rows.
+
+![Menus](documentation/features/menus-mobile.png)
+
 The Menu choices, once clicked, open the Menu images in a new tab so the User can review the food and drink options.
 
+#### Food Menu
+![Menus](documentation/features/food-menu.png)
+
+#### Drinks Menu
+![Menus](documentation/features/drinks-menu.png)
+
+#### Kids Menu
+![Menus](documentation/features/kids-menu.png)
+
+#### Sweet Menu
+![Menus](documentation/features/sweet-menu.png)
+
+## Reviews 
+The Reviews section sits underneath the Menus section so User's can see honest feedback from previous customers.
+
+ For a User who has not registered or logged in the section will show approved reviews in a scrollable list.
+
+![Menus](documentation/features/reviews-unlogged.png)
+
+For a User to leave a review they must be signed in. The log in button redirects the User to the log in page, if it is a new User they will have the option to register via this log in page.
+
+![Menus](documentation/features/reviews-button-unlogged.png)
 
 
+For a registered/logged in User, the review section will appear slightly different.
+
+The User will be able to see all of their own pending reviews if they have made any. The pending reviews will be greyed out with a message to communicate this.
+
+![Menus](documentation/features/review-pending.png)
+
+The review form will appear undereneath this, giving the User the ability to create a review.
+
+The form will have the following:
+- Review Rating Dropdown Menu
+- Comment Field
+- Submit Button
+
+![Menus](documentation/features/reviews-form.png)
+
+![Menus](documentation/features/rating-dropdown.png)
+
+![Menus](documentation/features/review-button.png)
