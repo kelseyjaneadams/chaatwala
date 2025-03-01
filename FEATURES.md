@@ -269,118 +269,191 @@ If a user does not have an account, they can click the **"Register"** link, whic
 
 ![Register Link](documentation/features/register-link.png)
 
+#### Sign In Success Flash Message
+When a user signs into their account succesfully they will be redirected to the home page with a success flash message that will appear at the top of the page Menu/Home page.
+
+![Sign Up Submit Flash Message](documentation/features/signin-flash.png)
+
 ---
 
-## Password Reset Form
+## 🔑 Password Reset Form
 
-When a user clicks the forgot password link it takes them to this password reset page with the reset form.
+When a user clicks the **"Forgot Password"** link, they are redirected to the password reset page, where they can enter their email to receive reset instructions.
 
-Password Reset Form Fields:
-- Email
+### Password Reset Form Fields:
+- **Email**
 
 ![Password Reset Form](documentation/features/password-reset.png)
 
-When the user inputs their email they can reset their password by clicking the Reset Password button
+After entering their email, the user can click the **"Reset Password"** button to proceed.
 
 ![Reset Password Button](documentation/features/reset-password-button.png)
 
-The user can leave the reset password form and go back to the log in page via this link. 
+If the user wishes to return to the **Log In page**, they can click the **"Back to Log In"** link.
 
-![Register Link](documentation/features/back-login.png)
+![Back to Login](documentation/features/back-login.png)
 
-If a user wants to cancel they can click the cancel button which will redirect them to the hmenu/home page.
+Alternatively, the **"Cancel"** button redirects the user back to the **Home/Menu page**.
 
-![Register Link](documentation/features/cancel-buttonn.png)
+![Cancel Button](documentation/features/cancel-buttonn.png)
 
 ---
 
-## Profile Image
+## 🖼️ Profile Image
 
-When a user creates an account a user profile is also created. The user is able to personalise their profile on the profile page by uploading a display picture.
+When a user creates an account, a profile is automatically generated. Users can personalize their profile by uploading a **display picture** from the **Profile page**.
 
-![Profile](documentation/features/profile-default.png)
-
-A user will be assigned the default image initially. 
+### Default Profile Image
+Upon account creation, users are assigned a **default profile image**.
 
 ![Profile Picture Default](documentation/features/default-pp.png)
 
-The user clicks the choose file button to select an image from their files. The selected file name will then be displayed in the input field beside the button to communicate a file has been selected.
+### Uploading a Profile Image
+To change their profile picture, the user must:
+1. Click the **"Choose File"** button to select an image.
+2. The selected file name will be displayed beside the button.
+3. Click **"Upload"** to save the new image.
 
 ![Profile Image Selection](documentation/features/chose-file.png)
-
-The user then has to click the upload button to upload the profile image. 
-
 ![Upload Button](documentation/features/upload-button.png)
 
-The page will refresh and the new image will be displayed in the profile picture.
+Once uploaded, the page refreshes, and the new profile image appears.
 
 ![New Profile Image](documentation/features/profile-image.png)
 
-A flash success message will also appear at the top of the screen.
+A **success flash message** confirms the update.
 
 ![Profile Flash Message](documentation/features/profile-flash.png)
 
 ---
 
-## Booking Section
+## 📅 Booking Management
 
-A user is able to manage their bookings on their profile page. The booking section displays all previous bookings in a table display format.
+Users can **view, edit, and delete** their bookings from the **Profile page**. Bookings are displayed in a structured table format.
 
-Each row includes the following information:
-- Date
-- Time 
-- Guests
-- Status
-- Actions
+### Booking Table Columns:
+- **Date**
+- **Time**
+- **Guests**
+- **Status** *(Pending, Confirmed, or Cancelled)*
+- **Actions** *(Edit or Delete)*
 
-![User Bookings ](documentation/features/user-bookings.png)
+![User Bookings](documentation/features/user-bookings.png)
 
-To edit the booking the user will click the edit button. 
+### Managing Bookings
+
+- **Editing a Booking:** Clicking the **"Edit"** button opens the booking form with pre-filled details.
+- **Deleting a Booking:** Clicking the **"Delete"** button prompts a confirmation modal.
 
 ![Edit Button](documentation/features/edit-button.png)
-
-To delete a booking the user will click the delete button. 
-
 ![Delete Button](documentation/features/delete-button.png)
 
-Before a user can delete a booking, a modal will pop up with a final warning to the user of the deletion. The delete button will remove the booking from the users bookings and the database. The cancel button will close the modal.
+Before deletion, a **confirmation modal** appears, giving the user the option to proceed or cancel.
 
 ![Delete Modal](documentation/features/delete-modal.png)
 
-## Edit Booking
+---
 
-When a user clicks to edit a booking on their bookings section in the prpfile page it will open up an edit booking form with all pre-populated data from their selected booking they want to edit. 
+## ✏️ Editing a Booking
+
+When a user selects **"Edit"** from their bookings list, they are taken to the **Edit Booking** form, where they can modify their reservation details.
 
 ![Edit Booking Form](documentation/features/edit-booking.png)
 
-Edit Booking Form Input Fields:
+### Booking Form Fields:
 - **Contact Name**
 - **Number of Guests (Dropdown)**
 - **Booking Date (Date Picker)**
 - **Booking Time (Hour & Minute Dropdowns)**
 - **Special Requests**
-- **Submit Button**
+- **Update Booking Button**
 
-Guest Dropwdown when clicked.
+#### Interactive Form Features:
+- **Guest Selection** *(Dropdown for 1-6 guests)*  
+  ![Guest Dropdown](documentation/features/guest-edit.png)
 
-![Edit Booking Form](documentation/features/guest-edit.png)
+- **Date Picker** *(Prevents selecting past dates)*  
+  ![Edit Booking Date Picker](documentation/features/date-picker-edit.png)
 
-Date picker when clicked.
+- **Hour Selection** *(Displays available restaurant hours only)*  
+  ![Hour Dropdown](documentation/features/time-picker-edit.png)
 
-![Edit Booking Date Picker](documentation/features/date-picker-edit.png)
+- **Minute Selection** *(Offers quarter-hour increments)*  
+  ![Minute Dropdown](documentation/features/min-picker-edit.png)
 
-Booking Hour Dropdown when clicked.
+Once the user finalizes their changes, they click **"Update Booking"** to save the edits.
 
-![Edit Booking Form](documentation/features/time-picker-edit.png)
+![Update Booking Button](documentation/features/update-booking.png)
 
-Booking Minute Dropdown when clicked.
-
-![Minute Dropdown](documentation/features/min-picker-edit.png)
-
-When a user has finished editing their booking they click the Update Booking button.
-
-![Update Booking Button](documentation/features/update-booking.png).
-
-A success flash message will appear at the top of the page to confirm this, and users will be able to see the updated booking in their bookings.
+A **success flash message** confirms the update, and the user is redirected to their **Bookings page**.
 
 ![Edit Success Flash Message](documentation/features/edit-flash.png)
+
+---
+
+## ⭐ Review Management
+
+Users can view and manage their **submitted reviews** on the **Profile page**. Reviews are displayed in a structured table format.
+
+### Review Table Columns:
+- **Date**
+- **Rating** *(Displayed as stars)*
+- **Comment**
+- **Status** *(Approved or Pending)*
+- **Actions** *(Edit or Delete)*
+
+![Edit Review](documentation/features/edit-review.png)
+
+### Managing Reviews
+
+- **Editing a Review:** Clicking the **"Edit"** button opens the review form with pre-filled details.
+- **Deleting a Review:** Clicking the **"Delete"** button prompts a confirmation modal.
+
+![Edit Button](documentation/features/edit-button.png)
+![Delete Button](documentation/features/delete-button.png)
+
+Before deletion, a **confirmation modal** appears, requiring final confirmation.
+
+![Delete Modal](documentation/features/review-modal.png)
+
+#### Review Deletion Confirmation
+When a user successfully deletes a review, a **success flash message** appears.
+
+![Delete Review Flash Message](documentation/features/delete-review-flash.png)
+
+---
+
+## ✏️ Editing a Review
+
+When a user selects **"Edit"** from their review list, they are taken to the **Edit Review** form, where they can update their feedback.
+
+![Edit Review Form](documentation/features/editreview-form.png)
+
+### Review Form Fields:
+- **Rating** *(Dropdown menu)*
+- **Comment** *(Text area)*
+- **Update Review Button**
+
+#### Interactive Form Features:
+- **Rating Selection** *(Dropdown for 1-5 stars)*  
+  ![Edit Rating Drop Down](documentation/features/editrating-dropdown.png)
+
+Once the user finalizes their changes, they click **"Update Review"** to save the edits.
+
+![Update Button](documentation/features/update-button.png)
+
+If the user chooses to cancel, clicking the **"Cancel"** button redirects them back to the **Profile page**.
+
+![Cancel Button](documentation/features/cancel-button.png)
+
+Upon a successful update, a **success flash message** appears on the **Profile page**.
+
+![Edit Review Flash Message](documentation/features/review-edit-flash.png)
+
+---
+
+## Favicon
+
+The favicon is a small image that is displayed in the browser's address bar. It is used to identify the website among others and help the user to find it when he/she is searching for it.
+
+![Edit Review Flash Message](documentation/features/favicon.png)
