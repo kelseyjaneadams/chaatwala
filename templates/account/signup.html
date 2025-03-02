@@ -11,11 +11,21 @@
         <p class="text-center">
             {% blocktrans with login_url=login_url %}
                 Already have an account? Then please 
-                <a href="{{ login_url }}" class="login-link" aria-label="Go to Log In page">
-                    Log in
-                </a>.
+                <a href="{{ login_url }}" class="login-link" aria-label="Go to Log In page">Log in</a>.
             {% endblocktrans %}
         </p>
+
+        <!-- Show All Sign-Up Error Messages at the Top of the Form -->
+        {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                {% for field, errors in form.errors.items %}
+                    {% for error in errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
 
         <!-- Sign Up Form -->
         <form method="post" action="{% url 'account_signup' %}" class="signup-form" aria-labelledby="signup-heading">
@@ -29,7 +39,7 @@
                 {{ form.email }}
             </div>
 
-            <!-- Username Field (Shown if required) -->
+            <!-- Username Field -->
             {% if form.username %}
                 <div class="form-group">
                     <label for="{{ form.username.id_for_label }}" class="form-label">
@@ -59,13 +69,12 @@
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
             {% endif %}
 
-            <!-- Submit & Cancel Buttons (Preserved Widths) -->
+            <!-- Submit & Cancel Buttons -->
             <div class="text-center">
-                <button type="submit" class="btn btn-primary custom-btn mt-2" aria-label="Submit Sign Up Form">
+                <button type="submit" class="btn btn-primary w-50 mx-auto d-block mt-2" aria-label="Submit Sign Up Form">
                     {% trans "Sign Up" %}
                 </button>
-
-                <a href="{% url 'home' %}" class="btn btn-secondary custom-btn mt-2" aria-label="Cancel Sign Up and Return Home">
+                <a href="{% url 'home' %}" class="btn btn-secondary mt-2" aria-label="Cancel Sign Up and Return Home">
                     {% trans "Cancel" %}
                 </a>
             </div>

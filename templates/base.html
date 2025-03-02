@@ -154,18 +154,25 @@
 
 <!-- Flash Messages -->
 {% if messages %}
-    <div class="container-fluid message-banner">
+    <div class="container-fluid message-banner mt-3">
         {% for message in messages %}
-            <div class="alert alert-success text-center" role="alert">
-                {{ message }}
-            </div>
+            {% if "error" not in message.tags %}  {# Exclude form errors #}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %}
+                    alert-dismissible fade show text-center" 
+                    role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endif %}
 
 <!-- Main Content -->
 <main class="container mt-4">
-    {% block content %}{% endblock %}
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
 </main>
 
 <!-- Footer -->
