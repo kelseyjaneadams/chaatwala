@@ -79,9 +79,13 @@
                 <article class="review-box
                         {% if review.status == 'pending' and review.user == request.user %} faded 
                          {% elif review.status == 'pending' %} d-none {% endif %}"
-                         aria-labelledby="review-{{ review.id }}" 
-                         role="listitem">
-                    
+                         aria-labelledby="review-{{ review.id }}">
+
+                    <!-- Hidden heading for accessibility -->
+                    <h3 class="visually-hidden" id="review-{{ review.id }}">
+                        Review by {{ review.user.username }} on {{ review.created_on|date:'M d, Y' }}
+                    </h3>
+
                     <!-- Profile Picture -->
                     <img src="{% if review.user.profile.image and review.user.profile.image.url %}
                                  {{ review.user.profile.image.url }}
@@ -93,7 +97,7 @@
 
                     <div class="review-content">
                         <p class="review-user">
-                            <strong id="review-{{ review.id }}">
+                            <strong>
                                 {{ review.user.username }}
                             </strong>
                             <span class="review-date">
@@ -104,7 +108,7 @@
                         </p>
 
                         <!-- Star Ratings -->
-                        <p class="review-rating" aria-label="Rated {{ review.rating }} out of 5">
+                        <p class="review-rating">
                             {% for _ in "x"|rjust:review.rating %}
                                 <span aria-hidden="true">⭐</span>
                             {% endfor %}
@@ -120,7 +124,7 @@
                             </p>
                         {% endif %}
 
-                        <!-- Review Comment (Preventing HTML Injection) -->
+                        <!-- Review Comment -->
                         <blockquote class="review-comment">
                             {{ review.comment|default_if_none:"No comment provided."|striptags|linebreaksbr }}
                         </blockquote>

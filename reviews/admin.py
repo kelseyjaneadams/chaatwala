@@ -7,7 +7,7 @@ from .models import Review
 class ReviewAdmin(SummernoteModelAdmin):
     """
     Admin interface for managing reviews.
-    
+
     - Enables Summernote for the comment field.
     - Displays relevant review details in the list view.
     - Allows filtering by review status, rating, and creation date.

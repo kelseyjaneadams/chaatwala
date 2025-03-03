@@ -38,7 +38,8 @@ class ReviewModelTest(TestCase):
         self.assertEqual(new_review.status, Review.STATUS_PENDING)
 
     def test_approved_review_resets_to_pending_on_update(self):
-        """Test that updating an approved review changes status to 'PENDING'."""
+        """Test that updating an approved review changes status
+            to 'PENDING'."""
         self.review.comment = "Updated review text"
         self.review.save()
 
@@ -46,7 +47,8 @@ class ReviewModelTest(TestCase):
         self.assertEqual(self.review.status, Review.STATUS_PENDING)
 
     def test_review_comment_max_length(self):
-        """Test that the comment field enforces a maximum length of 500 characters."""
+        """Test that the comment field enforces a maximum length
+            of 500 characters."""
         long_comment = "A" * 501
 
         review = Review(

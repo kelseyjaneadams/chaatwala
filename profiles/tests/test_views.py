@@ -29,27 +29,29 @@ class ProfileViewsTest(TestCase):
             booking_date=now().date(),
             booking_time=time(18, 30),
             special_request="Near the window",
-            status=Booking.STATUS_PENDING
+            status=Booking.STATUS_PENDING,
         )
 
         self.review = Review.objects.create(
             user=self.user,
             rating=5,
             comment="Great food!",
-            status="approved"
+            status="approved",
         )
 
     def test_profile_page_loads(self):
-        """Test that the profile page loads successfully for logged-in users."""
+        """Test that the profile page loads successfully for logged-in
+            users."""
         response = self.client.get(reverse("profile"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "profiles/profile.html")
 
     def test_profile_page_displays_bookings_and_reviews(self):
-        """Test that the profile page displays the user's bookings and reviews."""
+        """Test that the profile page displays the user's bookings
+            and reviews."""
         response = self.client.get(reverse("profile"))
 
-        formatted_date = self.booking.booking_date.strftime("%B %d, %Y")
+        formatted_date = self.booking.booking_date.strftime("%B %-d, %Y")
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Your Bookings")
@@ -64,14 +66,17 @@ class ProfileViewsTest(TestCase):
         """Test that a user can successfully update their profile picture."""
         image = SimpleUploadedFile(
             name="test_image.jpg",
-            content=b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\xff\x00\xff\x00\xff\x00!",
-            content_type="image/jpeg"
+            content=(
+                b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00"
+                b"\x00\xff\x00\xff\x00\xff\x00!"
+            ),
+            content_type="image/jpeg",
         )
 
         response = self.client.post(
             reverse("profile"),
             {"image": image},
-            follow=True
+            follow=True,
         )
 
         self.assertEqual(response.status_code, 200)
@@ -79,7 +84,8 @@ class ProfileViewsTest(TestCase):
         self.assertTrue(self.profile.image)
 
     def test_profile_picture_update_no_image(self):
-        """Test that submitting an empty form does not update the profile image."""
+        """Test that submitting an empty form does not update the
+            profile image."""
         response = self.client.post(reverse("profile"), {}, follow=True)
         self.assertEqual(response.status_code, 200)
 

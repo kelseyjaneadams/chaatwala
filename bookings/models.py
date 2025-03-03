@@ -53,11 +53,11 @@ class Booking(models.Model):
         if self.pk:
             original = Booking.objects.get(pk=self.pk)
             if (
-                original.status == self.STATUS_CONFIRMED and
-                (
-                    original.booking_date != self.booking_date or
-                    original.booking_time != self.booking_time or
-                    original.number_of_guests != self.number_of_guests
+                original.status == self.STATUS_CONFIRMED
+                and (
+                    original.booking_date != self.booking_date
+                    or original.booking_time != self.booking_time
+                    or original.number_of_guests != self.number_of_guests
                 )
             ):
                 self.status = self.STATUS_PENDING
@@ -68,6 +68,6 @@ class Booking(models.Model):
     def __str__(self):
         """String representation of the booking."""
         return (
-            f"Booking by {self.user.username} for {self.number_of_guests} guests "
-            f"on {self.booking_date} at {self.booking_time}"
+            f"Booking by {self.user.username} for {self.number_of_guests} "
+            f"guests on {self.booking_date} at {self.booking_time}"
         )

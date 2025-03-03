@@ -13,7 +13,8 @@ class BookingViewsTest(TestCase):
         """Set up a test client, user, and sample bookings."""
         self.client = Client()
         self.user = User.objects.create_user(
-            username="testuser", password="password123"
+            username="testuser",
+            password="password123"
         )
         self.client.login(username="testuser", password="password123")
 
@@ -35,7 +36,10 @@ class BookingViewsTest(TestCase):
         )
 
     def test_my_bookings_view(self):
-        """Test that my_bookings loads correctly and displays the booking form."""
+        """
+        Test that my_bookings loads correctly
+        and displays the booking form.
+        """
         response = self.client.get(reverse("bookings"))
 
         self.assertEqual(response.status_code, 200)
@@ -50,7 +54,10 @@ class BookingViewsTest(TestCase):
         self.assertContains(response, "special_request")
 
     def test_profile_page_displays_bookings(self):
-        """Test that the profile page correctly displays the user's bookings."""
+        """
+        Test that the profile page correctly
+        displays the user's bookings.
+        """
         response = self.client.get(reverse("profile"))
 
         self.assertEqual(response.status_code, 200)
@@ -73,10 +80,15 @@ class BookingViewsTest(TestCase):
             "minute": "30",
             "special_request": "Birthday celebration",
         }
-        response = self.client.post(reverse("book_table"), data=form_data, follow=True)
+        response = self.client.post(
+            reverse("book_table"), data=form_data, follow=True
+        )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Thanks for booking with us! Your booking is pending approval.")
+        self.assertContains(
+            response,
+            "Thanks for booking with us! Your booking is pending approval.",
+        )
         self.assertEqual(Booking.objects.count(), 2)
 
     def test_book_table_invalid(self):
@@ -85,7 +97,13 @@ class BookingViewsTest(TestCase):
         response = self.client.post(reverse("book_table"), data=form_data)
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "There was an error with your booking.")
+        messages = list(response.context["messages"])
+        self.assertTrue(
+            any(
+                "There was an error with your booking." in str(msg)
+                for msg in messages
+            )
+        )
 
     def test_edit_booking_view(self):
         """Test that an existing booking can be edited successfully."""

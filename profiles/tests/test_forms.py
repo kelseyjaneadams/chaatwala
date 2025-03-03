@@ -14,7 +14,9 @@ class ProfileImageFormTest(TestCase):
         image_io = io.BytesIO()
         image.save(image_io, format="JPEG")
         image_io.seek(0)
-        return SimpleUploadedFile("test_image.jpg", image_io.getvalue(), content_type="image/jpeg")
+        return SimpleUploadedFile(
+            "test_image.jpg", image_io.getvalue(), content_type="image/jpeg"
+        )
 
     def test_valid_form(self):
         """Test that the form is valid with a valid image file."""

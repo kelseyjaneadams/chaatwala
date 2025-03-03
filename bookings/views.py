@@ -12,7 +12,9 @@ def my_bookings(request):
     """
     Displays the user's bookings along with the booking form.
     """
-    bookings = Booking.objects.filter(user=request.user).order_by("-booking_date")
+    bookings = Booking.objects.filter(user=request.user).order_by(
+        "-booking_date"
+    )
     form = BookingForm()
     return render(
         request,
@@ -62,8 +64,12 @@ def book_table(request):
 
             messages.success(
                 request,
-                "Thanks for booking with us! Your booking is pending approval."
+                (
+                    "Thanks for booking with us! "
+                    "Your booking is pending approval."
+                ),
             )
+
             return redirect("bookings")
 
         messages.error(request, "There was an error with your booking.")
@@ -89,7 +95,8 @@ def edit_booking(request, booking_id):
             updated_booking.status = "PENDING"
             updated_booking.save()
             messages.success(
-                request, "Your booking has been updated and is now pending approval."
+                request,
+                "Your booking has been updated and is now pending approval.",
             )
             return redirect("profile")
     else:
@@ -100,7 +107,6 @@ def edit_booking(request, booking_id):
         "bookings/edit_booking.html",
         {"form": form, "booking": booking},
     )
-
 
 
 @login_required

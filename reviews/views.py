@@ -46,7 +46,10 @@ def submit_review(request):
                 "Your review is pending approval."
             )
         else:
-            messages.error(request, "There was an error submitting your review.")
+            messages.error(
+                request,
+                "There was an error submitting your review."
+            )
 
     return redirect("menus")
 
@@ -62,7 +65,10 @@ def edit_review(request, review_id):
         form = ReviewForm(request.POST, instance=review)
         if form.is_valid():
             form.save()
-            messages.success(request, "Your review has been updated successfully.")
+            messages.success(
+                request,
+                "Your review has been updated successfully."
+            )
             return redirect("profile")
     else:
         form = ReviewForm(instance=review)

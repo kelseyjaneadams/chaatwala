@@ -44,160 +44,127 @@
         </div>
     </div>
 
-<!-- Bookings Section -->
-<section class="mt-5">
-    <h3 class="text-center">Your Bookings</h3>
+    <!-- Bookings Section -->
+    <section class="mt-5">
+        <h3 class="text-center">Your Bookings</h3>
 
-    {% if bookings %}
-        <div class="table-responsive">
-            <table class="table table-striped text-center">
-                <thead class="custom-table-head">
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Time</th>
-                        <th scope="col">Guests</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for booking in bookings %}
+        {% if bookings %}
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+                    <thead class="custom-table-head">
                         <tr>
-                            <td>{{ booking.booking_date }}</td>
-                            <td>
-                                {% with hour=booking.booking_time.hour minute=booking.booking_time.minute %}
-                                    {% if hour == 12 %}
-                                        12{% if minute != 0 %}:{{ minute }}{% endif %}pm
-                                    {% elif hour > 12 %}
-                                        {{ hour|add:"-12" }}{% if minute != 0 %}:{{ minute }}{% endif %}pm
-                                    {% else %}
-                                        {{ hour }}{% if minute != 0 %}:{{ minute }}{% endif %}pm
-                                    {% endif %}
-                                {% endwith %}
-                            </td>
-                            <td>{{ booking.number_of_guests }}</td>
-                            <td class="{% if booking.status == 'CONFIRMED' %}text-success{% elif booking.status == 'CANCELLED' %}text-danger{% else %}text-warning{% endif %}">
-                                {{ booking.get_status_display }}
-                            </td>
-                            <td>
-                                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning custom-edit-btn"
-                                   aria-label="Edit booking for {{ booking.booking_date }}">
-                                    Edit
-                                </a>
-
-                                <!-- Delete Booking Button -->
-                                <button type="button" class="btn btn-sm btn-danger custom-delete-btn"
-                                        data-bs-toggle="modal" data-bs-target="#deleteBookingModal{{ booking.id }}"
-                                        aria-label="Delete booking for {{ booking.booking_date }}">
-                                    Delete
-                                </button>
-                            </td>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Guests</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
                         </tr>
+                    </thead>
+                    <tbody>
+                        {% for booking in bookings %}
+                            <tr>
+                                <td>{{ booking.booking_date }}</td>
+                                <td>
+                                    {% with hour=booking.booking_time.hour minute=booking.booking_time.minute %}
+                                        {% if hour == 12 %}
+                                            12{% if minute != 0 %}:{{ minute }}{% endif %}pm
+                                        {% elif hour > 12 %}
+                                            {{ hour|add:"-12" }}{% if minute != 0 %}:{{ minute }}{% endif %}pm
+                                        {% else %}
+                                            {{ hour }}{% if minute != 0 %}:{{ minute }}{% endif %}pm
+                                        {% endif %}
+                                    {% endwith %}
+                                </td>
+                                <td>{{ booking.number_of_guests }}</td>
+                                <td class="{% if booking.status == 'CONFIRMED' %}text-success{% elif booking.status == 'CANCELLED' %}text-danger{% else %}text-warning{% endif %}">
+                                    {{ booking.get_status_display }}
+                                </td>
+                                <td>
+                                    <a href="{% url 'edit_booking' booking.id %}" class="btn btn-sm btn-warning custom-edit-btn">
+                                        Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-danger custom-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteBookingModal{{ booking.id }}">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center">No bookings found.</p>
+        {% endif %}
+    </section>
 
-                        <!-- Delete Booking Modal -->
-                        <div class="modal fade" id="deleteBookingModal{{ booking.id }}" tabindex="-1" aria-labelledby="deleteBookingModalLabel{{ booking.id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteBookingModalLabel{{ booking.id }}">Confirm Deletion</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete this booking?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form method="post" action="{% url 'delete_booking' booking.id %}">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Reviews Section -->
+    <section class="mt-5">
+        <h3 class="text-center">Your Reviews</h3>
 
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    {% else %}
-        <p class="text-center">No bookings found.</p>
-    {% endif %}
+        {% if reviews %}
+            <div class="table-responsive">
+                <table class="table table-striped text-center">
+                    <thead class="custom-table-head">
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Rating</th>
+                            <th scope="col">Comment</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for review in reviews %}
+                            <tr>
+                                <td>{{ review.created_on|date:"F j, Y" }}</td>
+                                <td>
+                                    {% for _ in "x"|rjust:review.rating %}
+                                        <span class="text-warning">★</span>
+                                    {% endfor %}
+                                </td>
+                                <td>{{ review.comment }}</td>
+                                <td class="{% if review.status == 'approved' %}text-success{% else %}text-warning{% endif %}">
+                                    {{ review.status|title }}
+                                </td>
+                                <td>
+                                    <a href="{% url 'edit_review' review.id %}" class="btn btn-sm btn-warning custom-edit-btn">
+                                        Edit
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-danger custom-delete-btn" data-bs-toggle="modal" data-bs-target="#deleteReviewModal{{ review.id }}">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center">No reviews found.</p>
+        {% endif %}
+    </section>
 </section>
 
-<!-- Reviews Section -->
-<section class="mt-5">
-    <h3 class="text-center">Your Reviews</h3>
-
-    {% if reviews %}
-        <div class="table-responsive">
-            <table class="table table-striped text-center">
-                <thead class="custom-table-head">
-                    <tr>
-                        <th scope="col">Date</th>
-                        <th scope="col">Rating</th>
-                        <th scope="col">Comment</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for review in reviews %}
-                        <tr>
-                            <td>{{ review.created_on|date:"F j, Y" }}</td>
-                            <td>
-                                {% for _ in "x"|rjust:review.rating %}
-                                    <span class="text-warning">★</span>
-                                {% endfor %}
-                            </td>
-                            <td>{{ review.comment }}</td>
-                            <td class="{% if review.status == 'approved' %}text-success{% else %}text-warning{% endif %}">
-                                {{ review.status|title }}
-                            </td>
-                            <td>
-                                <a href="{% url 'edit_review' review.id %}" class="btn btn-sm btn-warning custom-edit-btn"
-                                   aria-label="Edit review from {{ review.created_on|date:'F j, Y' }}">
-                                    Edit
-                                </a>
-
-                                <!-- Delete Review Button -->
-                                <button type="button" class="btn btn-sm btn-danger custom-delete-btn"
-                                        data-bs-toggle="modal" data-bs-target="#deleteReviewModal{{ review.id }}"
-                                        aria-label="Delete review from {{ review.created_on|date:'F j, Y' }}">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-
-                        <!-- Delete Review Modal -->
-                        <div class="modal fade" id="deleteReviewModal{{ review.id }}" tabindex="-1" aria-labelledby="deleteReviewModalLabel{{ review.id }}" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="deleteReviewModalLabel{{ review.id }}">Confirm Deletion</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Are you sure you want to delete this review?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <form method="post" action="{% url 'delete_review' review.id %}">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-danger">Delete</button>
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    {% endfor %}
-                </tbody>
-            </table>
+<!-- Modals for Bookings -->
+{% for booking in bookings %}
+    <div class="modal fade" id="deleteBookingModal{{ booking.id }}" tabindex="-1" aria-labelledby="deleteBookingModalLabel{{ booking.id }}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteBookingModalLabel{{ booking.id }}">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">Are you sure you want to delete this booking?</div>
+                <div class="modal-footer">
+                    <form method="post" action="{% url 'delete_booking' booking.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    {% else %}
-        <p class="text-center">No reviews found.</p>
-    {% endif %}
-</section>
+    </div>
+{% endfor %}
 
 {% endblock %}

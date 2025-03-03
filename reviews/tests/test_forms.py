@@ -6,7 +6,8 @@ class ReviewFormTest(TestCase):
     """Test case for the ReviewForm."""
 
     def test_valid_form(self):
-        """Test that the form is valid when all required fields are provided."""
+        """Test that the form is valid when all required fields
+            are provided."""
         form_data = {
             "rating": 5,
             "comment": "Excellent service and great food!",
@@ -26,9 +27,10 @@ class ReviewFormTest(TestCase):
         self.assertIn("comment", form.errors)
 
     def test_comment_max_length(self):
-        """Test that the comment field enforces a maximum length of 500 characters."""
+        """Test that the comment field enforces a maximum length of
+            500 characters."""
         long_comment = "A" * 501
-        
+
         form_data = {
             "rating": 3,
             "comment": long_comment,
@@ -37,12 +39,14 @@ class ReviewFormTest(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertIn("comment", form.errors)
-
-        self.assertIn("Ensure this value has at most 500 characters", form.errors["comment"][0])
-
+        self.assertIn(
+            "Ensure this value has at most 500 characters",
+            form.errors["comment"][0]
+        )
 
     def test_comment_placeholder(self):
-        """Ensure the comment field has the correct placeholder and attributes."""
+        """Ensure the comment field has the correct placeholder and
+            attributes."""
         form = ReviewForm()
         self.assertEqual(
             form.fields["comment"].widget.attrs["placeholder"],
@@ -54,7 +58,8 @@ class ReviewFormTest(TestCase):
         )
 
     def test_rating_widget_attributes(self):
-        """Check that the rating field uses a select dropdown with correct attributes."""
+        """Check that the rating field uses a select dropdown with
+            correct attributes."""
         form = ReviewForm()
         self.assertEqual(
             form.fields["rating"].widget.attrs["class"],

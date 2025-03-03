@@ -1,6 +1,7 @@
 from django import forms
 from .models import Profile
 
+
 class ProfileImageForm(forms.ModelForm):
     """
     Form for updating the profile image, ensuring proper file input display.

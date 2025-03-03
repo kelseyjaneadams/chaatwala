@@ -9,8 +9,11 @@ class TestProfileSignals(TestCase):
     """Test case for profile model signals."""
 
     def test_profile_created_on_user_creation(self):
-        """Test that a profile is automatically created when a user is created."""
-        user = User.objects.create_user(username="testuser", password="password123")
+        """Test that a profile is automatically
+            created when a user is created."""
+        user = User.objects.create_user(
+            username="testuser", password="password123"
+        )
         self.assertTrue(Profile.objects.filter(user=user).exists())
 
     @patch("cloudinary.uploader.upload")
@@ -21,13 +24,18 @@ class TestProfileSignals(TestCase):
         """
         mock_upload.return_value = {"public_id": "test_image"}
 
-        user = User.objects.create_user(username="testuser4", password="password123")
+        user = User.objects.create_user(
+            username="testuser4", password="password123"
+        )
         profile = Profile.objects.get(user=user)
 
         new_image = SimpleUploadedFile(
             name="new_image.jpg",
-            content=b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\xff\x00\xff\x00\xff\x00!",
-            content_type="image/jpeg"
+            content=(
+                b"\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x00\xff\x00\xff\x00"
+                b"\xff\x00!"
+            ),
+            content_type="image/jpeg",
         )
 
         profile.image = "test_image"

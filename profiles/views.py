@@ -6,6 +6,7 @@ from .forms import ProfileImageForm
 from bookings.models import Booking
 from reviews.models import Review
 
+
 @login_required
 def profile_view(request):
     """
@@ -27,11 +28,18 @@ def profile_view(request):
     else:
         form = ProfileImageForm(instance=profile)
 
-    bookings = Booking.objects.filter(user=request.user).order_by('-booking_date')
+    bookings = Booking.objects.filter(user=request.user).order_by(
+        '-booking_date'
+    )
     reviews = Review.objects.filter(user=request.user).order_by('-created_on')
 
     return render(
         request,
         "profiles/profile.html",
-        {"form": form, "profile": profile, "bookings": bookings, "reviews": reviews},
+        {
+            "form": form,
+            "profile": profile,
+            "bookings": bookings,
+            "reviews": reviews,
+        },
     )

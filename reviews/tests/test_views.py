@@ -40,7 +40,6 @@ class ReviewViewsTest(TestCase):
         self.assertTemplateUsed(response, "bookings/menus.html")
 
         self.assertContains(response, "Great experience!")
-
         self.assertContains(response, "Pending review")
 
     def test_submit_review_valid(self):
@@ -49,20 +48,33 @@ class ReviewViewsTest(TestCase):
             "rating": 5,
             "comment": "Excellent service!"
         }
-        response = self.client.post(reverse("submit_review"), data=form_data, follow=True)
+        response = self.client.post(
+            reverse("submit_review"), data=form_data, follow=True
+        )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Your review is pending approval.")
+        self.assertContains(
+            response,
+            "Your review is pending approval."
+        )
         self.assertEqual(Review.objects.count(), 3)
         self.assertEqual(Review.objects.last().status, "pending")
 
     def test_submit_review_invalid(self):
         """Test that submitting an empty review shows an error."""
         form_data = {}
-        response = self.client.post(reverse("submit_review"), data=form_data, follow=True)
+        response = self.client.post(
+            reverse("submit_review"), data=form_data, follow=True
+        )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "There was an error submitting your review.")
+        messages = list(response.context["messages"])
+        self.assertTrue(
+            any(
+                "There was an error submitting your review." in str(msg)
+                for msg in messages
+            )
+        )
 
     def test_edit_review_success(self):
         """Test that a logged-in user can edit their own review."""
@@ -75,7 +87,10 @@ class ReviewViewsTest(TestCase):
 
         self.pending_review.refresh_from_db()
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Your review has been updated successfully.")
+        self.assertContains(
+            response,
+            "Your review has been updated successfully."
+        )
         self.assertEqual(self.pending_review.comment, "Updated comment")
 
     def test_edit_review_unauthorized(self):
@@ -94,8 +109,13 @@ class ReviewViewsTest(TestCase):
         response = self.client.post(delete_url, follow=True)
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Your review has been deleted.")
-        self.assertFalse(Review.objects.filter(id=self.pending_review.id).exists())
+        self.assertContains(
+            response,
+            "Your review has been deleted."
+        )
+        self.assertFalse(
+            Review.objects.filter(id=self.pending_review.id).exists()
+        )
 
     def test_delete_review_unauthorized(self):
         """Test that a user cannot delete someone else's review."""
@@ -106,7 +126,9 @@ class ReviewViewsTest(TestCase):
         response = self.client.post(delete_url, follow=True)
 
         self.assertEqual(response.status_code, 404)
-        self.assertTrue(Review.objects.filter(id=self.pending_review.id).exists())
+        self.assertTrue(
+            Review.objects.filter(id=self.pending_review.id).exists()
+        )
 
     def test_unauthenticated_access_redirects(self):
         """Ensure unauthenticated users are redirected from protected views."""
@@ -120,4 +142,7 @@ class ReviewViewsTest(TestCase):
 
         for url in protected_urls:
             response = self.client.get(url, follow=True)
-            self.assertRedirects(response, f"/accounts/login/?next={url}")
+            self.assertRedirects(
+                response,
+                f"/accounts/login/?next={url}"
+            )

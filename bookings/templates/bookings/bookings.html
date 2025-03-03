@@ -3,7 +3,7 @@
 
 <section class="container d-flex justify-content-center align-items-center form-container">
     <div class="booking-form-wrapper">
-        <h2 class="text-center mb-4">Book a Table</h2>
+        <h2 id="booking-form-heading" class="text-center mb-4 visually-hidden">Book a Table</h2>
 
         <form method="post" action="{% url 'book_table' %}" class="booking-form" aria-labelledby="booking-form-heading">
             {% csrf_token %}
@@ -33,18 +33,32 @@
             </div>
 
             <!-- Time Selection: Hour & Minute (Side by Side) -->
-            <div class="form-group time-select-wrapper">
-                <div>
+            <div class="form-group time-select-wrapper d-flex gap-2">
+                <div class="w-25">
                     <label for="{{ form.hour.id_for_label }}" class="form-label">
                         Hour
                     </label>
-                    {{ form.hour }}
+                    <select name="{{ form.hour.html_name }}" id="{{ form.hour.id_for_label }}" class="form-select">
+                        <option value="" disabled selected>--</option>  <!-- Keeps dropdown arrow visible -->
+                        {% for value, label in form.hour.field.choices %}
+                            {% if value %}  {# Prevent empty option error #}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
-                <div>
+                <div class="w-25">
                     <label for="{{ form.minute.id_for_label }}" class="form-label">
                         Minute
                     </label>
-                    {{ form.minute }}
+                    <select name="{{ form.minute.html_name }}" id="{{ form.minute.id_for_label }}" class="form-select">
+                        <option value="" disabled selected>--</option>  <!-- Keeps dropdown arrow visible -->
+                        {% for value, label in form.minute.field.choices %}
+                            {% if value %}  {# Prevent empty option error #}
+                                <option value="{{ value }}">{{ label }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
                 </div>
             </div>
 

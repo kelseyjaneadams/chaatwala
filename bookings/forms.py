@@ -10,8 +10,12 @@ class BookingForm(forms.ModelForm):
     Includes hour and minute dropdowns for selecting booking time.
     Excludes the confirmation status field.
     """
-    HOUR_CHOICES = [("", "")] + [(str(hour), str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
-    MINUTE_CHOICES = [("", "")] + [(str(minute), f"{minute:02}") for minute in [0, 15, 30, 45]]
+    HOUR_CHOICES = [("", "")] + [
+        (str(hour), str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    ]
+    MINUTE_CHOICES = [("", "")] + [
+        (str(minute), f"{minute:02}") for minute in [0, 15, 30, 45]
+    ]
 
     hour = forms.ChoiceField(
         choices=HOUR_CHOICES,
@@ -25,27 +29,26 @@ class BookingForm(forms.ModelForm):
     )
 
     booking_date = forms.DateField(
-    widget=forms.DateInput(
-        attrs={
-            "type": "date",
-            "class": "date-picker",
-            "min": datetime.date.today().isoformat()
-        }
-    ),
-    label="Booking Date"
-)
-
+        widget=forms.DateInput(
+            attrs={
+                "type": "date",
+                "class": "date-picker",
+                "min": datetime.date.today().isoformat()
+            }
+        ),
+        label="Booking Date"
+    )
 
     class Meta:
         model = Booking
-        exclude = ['booking_time', 'status', 'user']
+        exclude = ["booking_time", "status", "user"]
         fields = [
-            'contact_name',
-            'number_of_guests',
-            'booking_date',
-            'hour',
-            'minute',
-            'special_request',
+            "contact_name",
+            "number_of_guests",
+            "booking_date",
+            "hour",
+            "minute",
+            "special_request",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -54,12 +57,12 @@ class BookingForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
         self.fields = OrderedDict([
-            ('contact_name', self.fields['contact_name']),
-            ('number_of_guests', self.fields['number_of_guests']),
-            ('booking_date', self.fields['booking_date']),
-            ('hour', self.fields['hour']),
-            ('minute', self.fields['minute']),
-            ('special_request', self.fields['special_request']),
+            ("contact_name", self.fields["contact_name"]),
+            ("number_of_guests", self.fields["number_of_guests"]),
+            ("booking_date", self.fields["booking_date"]),
+            ("hour", self.fields["hour"]),
+            ("minute", self.fields["minute"]),
+            ("special_request", self.fields["special_request"]),
         ])
 
     def clean(self):
@@ -67,11 +70,11 @@ class BookingForm(forms.ModelForm):
         Combines the hour and minute fields into the booking_time field.
         """
         cleaned_data = super().clean()
-        hour = cleaned_data.get('hour')
-        minute = cleaned_data.get('minute')
+        hour = cleaned_data.get("hour")
+        minute = cleaned_data.get("minute")
 
         if hour and minute:
-            cleaned_data['booking_time'] = f"{hour}:{minute}"
+            cleaned_data["booking_time"] = f"{hour}:{minute}"
         return cleaned_data
 
     def save(self, commit=True):
@@ -79,8 +82,8 @@ class BookingForm(forms.ModelForm):
         Overrides save to update the booking_time field dynamically.
         """
         instance = super().save(commit=False)
-        hour = self.cleaned_data.get('hour')
-        minute = self.cleaned_data.get('minute')
+        hour = self.cleaned_data.get("hour")
+        minute = self.cleaned_data.get("minute")
 
         if hour and minute:
             instance.booking_time = f"{hour}:{minute}"
@@ -95,8 +98,12 @@ class CustomTimeForm(forms.ModelForm):
     Custom form for the Booking model to split the booking_time field
     into dropdowns for hours and minutes.
     """
-    HOUR_CHOICES = [("", "")] + [(str(hour), str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
-    MINUTE_CHOICES = [("", "")] + [(str(minute), f"{minute:02}") for minute in [0, 15, 30, 45]]
+    HOUR_CHOICES = [("", "")] + [
+        (str(hour), str(hour)) for hour in [12, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    ]
+    MINUTE_CHOICES = [("", "")] + [
+        (str(minute), f"{minute:02}") for minute in [0, 15, 30, 45]
+    ]
 
     hour = forms.ChoiceField(
         choices=HOUR_CHOICES,
@@ -111,16 +118,16 @@ class CustomTimeForm(forms.ModelForm):
 
     class Meta:
         model = Booking
-        exclude = ['booking_id', 'booking_time']
+        exclude = ["booking_id", "booking_time"]
         fields = [
-            'user',
-            'contact_name',
-            'number_of_guests',
-            'booking_date',
-            'hour',
-            'minute',
-            'special_request',
-            'status',
+            "user",
+            "contact_name",
+            "number_of_guests",
+            "booking_date",
+            "hour",
+            "minute",
+            "special_request",
+            "status",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -130,14 +137,14 @@ class CustomTimeForm(forms.ModelForm):
         """
         super().__init__(*args, **kwargs)
         self.fields = OrderedDict([
-            ('user', self.fields['user']),
-            ('contact_name', self.fields['contact_name']),
-            ('number_of_guests', self.fields['number_of_guests']),
-            ('booking_date', self.fields['booking_date']),
-            ('hour', self.fields['hour']),
-            ('minute', self.fields['minute']),
-            ('special_request', self.fields['special_request']),
-            ('status', self.fields['status']),
+            ("user", self.fields["user"]),
+            ("contact_name", self.fields["contact_name"]),
+            ("number_of_guests", self.fields["number_of_guests"]),
+            ("booking_date", self.fields["booking_date"]),
+            ("hour", self.fields["hour"]),
+            ("minute", self.fields["minute"]),
+            ("special_request", self.fields["special_request"]),
+            ("status", self.fields["status"]),
         ])
 
     def clean(self):
@@ -145,11 +152,11 @@ class CustomTimeForm(forms.ModelForm):
         Combines the hour and minute fields into the booking_time field.
         """
         cleaned_data = super().clean()
-        hour = cleaned_data.get('hour')
-        minute = cleaned_data.get('minute')
+        hour = cleaned_data.get("hour")
+        minute = cleaned_data.get("minute")
 
         if hour and minute:
-            cleaned_data['booking_time'] = f"{hour}:{minute}"
+            cleaned_data["booking_time"] = f"{hour}:{minute}"
         return cleaned_data
 
     def save(self, commit=True):
@@ -157,8 +164,8 @@ class CustomTimeForm(forms.ModelForm):
         Overrides save to update the booking_time field dynamically.
         """
         instance = super().save(commit=False)
-        hour = self.cleaned_data.get('hour')
-        minute = self.cleaned_data.get('minute')
+        hour = self.cleaned_data.get("hour")
+        minute = self.cleaned_data.get("minute")
 
         if hour and minute:
             instance.booking_time = f"{hour}:{minute}"

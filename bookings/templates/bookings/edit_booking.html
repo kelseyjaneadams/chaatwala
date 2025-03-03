@@ -5,7 +5,7 @@
 
 <section class="container d-flex justify-content-center align-items-center form-container">
     <div class="booking-form-wrapper">
-        <h2 class="text-center mb-4">Edit Your Booking</h2>
+        <h2 id="edit-booking-heading" class="text-center mb-4">Edit Your Booking</h2>
 
         <form method="post" action="{% url 'edit_booking' booking.id %}" class="booking-form" aria-labelledby="edit-booking-heading">
             {% csrf_token %}
@@ -35,26 +35,34 @@
             </div>
 
             <!-- Time Selection: Hour & Minute -->
-            <div class="form-group time-select-wrapper edit-mode">
-                <div>
-                    <label for="id_hour" class="form-label">Hour</label>
-                    <select name="hour" id="id_hour" class="form-control" aria-label="Select booking hour">
-                        {% for hour in form.fields.hour.choices %}
-                            <option value="{{ hour.0 }}" 
-                                {% if hour.0|stringformat:"s" == booking.booking_time|time:"g" %}selected{% endif %}>
-                                {{ hour.1 }}
-                            </option>
+            <div class="form-group time-select-wrapper d-flex gap-2">
+                <div class="w-25">
+                    <label for="{{ form.hour.id_for_label }}" class="form-label">
+                        Hour
+                    </label>
+                    <select name="{{ form.hour.html_name }}" id="{{ form.hour.id_for_label }}" class="form-select">
+                        <option value="" disabled>--</option> <!-- Keeps dropdown arrow visible -->
+                        {% for value, label in form.hour.field.choices %}
+                            {% if value %}  {# Prevent empty option error #}
+                                <option value="{{ value }}" {% if value|stringformat:"s" == booking.booking_time|time:"g" %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
-                <div>
-                    <label for="id_minute" class="form-label">Minute</label>
-                    <select name="minute" id="id_minute" class="form-control" aria-label="Select booking minute">
-                        {% for minute in form.fields.minute.choices %}
-                            <option value="{{ minute.0 }}" 
-                                {% if minute.0|stringformat:"s" == booking.booking_time|time:"i" %}selected{% endif %}>
-                                {{ minute.1 }}
-                            </option>
+                <div class="w-25">
+                    <label for="{{ form.minute.id_for_label }}" class="form-label">
+                        Minute
+                    </label>
+                    <select name="{{ form.minute.html_name }}" id="{{ form.minute.id_for_label }}" class="form-select">
+                        <option value="" disabled>--</option> <!-- Keeps dropdown arrow visible -->
+                        {% for value, label in form.minute.field.choices %}
+                            {% if value %}  {# Prevent empty option error #}
+                                <option value="{{ value }}" {% if value|stringformat:"s" == booking.booking_time|time:"i" %}selected{% endif %}>
+                                    {{ label }}
+                                </option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                 </div>
@@ -69,9 +77,11 @@
             </div>
 
             <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary w-50 d-block mx-auto mt-3" aria-label="Update booking">
-                Update Booking
-            </button>
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary mt-3" aria-label="Update Booking">
+                    Update Booking
+                </button>
+            </div>
         </form>
     </div>
 </section>

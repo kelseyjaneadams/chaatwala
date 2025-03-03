@@ -34,4 +34,5 @@ class TestProfileAccess(TestCase):
     def test_unauthenticated_user_redirected_to_login(self):
         """Test that an unauthenticated user is redirected to login."""
         response = self.client.get(self.profile_url, follow=True)
-        self.assertRedirects(response, f"/accounts/login/?next={self.profile_url}")
+        login_url = f"/accounts/login/?next={self.profile_url}"
+        self.assertRedirects(response, login_url)
