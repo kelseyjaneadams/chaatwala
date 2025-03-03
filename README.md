@@ -286,5 +286,24 @@ Please refer to the [TESTING.md](TESTING.md) file for all test-related documenta
 - The app can be accessed at: **[Chaatwala](https://chaatwala-7c8e5440b10f.herokuapp.com/)**
 
 Please refer to the [DEPLOYMENT.md](DEPLOYMENT.md) file for all deployment-related documentation.
+---
+
+## Future Improvements
+
+### Email Confirmation:
+While this project allowed me to focus on the basics of Python Django, I recognize that adding features like email confirmation upon booking would be valuable. However, implementing this feature was beyond the scope of this project, as it requires more advanced knowledge of Django’s database handling and email system integration. With limited time, I prioritized mastering the foundational aspects of Django for this project.
+
+### Social Account Login:
+In the future, I would like to integrate social account logins to simplify user registration and authentication. Services like Google, Facebook, or Twitter would allow users to sign up and log in using their existing social media accounts. Implementing this feature requires deeper knowledge of authentication systems and third-party integrations. While I couldn’t implement it in this project, I plan to explore and implement this feature in future projects as my Django expertise grows.
+
+### Double Booking Prevention:
+The feature to prevent double bookings—checking availability before confirming a reservation—was marked as "wont do" due to its complexity. Implementing this feature requires several advanced steps:
+
+- **Query for Availability**: Efficiently querying the database to check if the selected time and date are already booked, ensuring no overlap.
+- **Manage Service Capacity**: Handling service capacity limits and ensuring no additional bookings can be made once a slot is full.
+- **Handle Unavailable Slots**: If a slot is taken, the system must inform the user and suggest alternatives.
+- **Concurrency and Real-Time Updates**: Prevent race conditions, where multiple users attempt to book the same slot simultaneously, by using transactional processing and concurrency control.
+
+Given the advanced logic required and the time limitations of this project, I wasn't able to implement this feature. However, I plan to add this functionality in future projects once I gain more experience with Django’s database querying, model relationships, and handling complex queries.
 
 ---

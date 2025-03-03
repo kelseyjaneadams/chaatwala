@@ -330,24 +330,243 @@ The link to the server will appear. Click the link to see the report and find ou
 
 ![HTML Validation Report](documentation/validation/editreviewshtml.png)
 
+#### password_reset.html
+
+![HTML Validation Report](documentation/validation/forgotpasswordhtml.png)
+
 - No errors or warnings were found when passing through the official [W3C](https://validator.w3.org/) validator. This checking was done manually by copying the view page source code (Ctrl+U) and pasting it into the validator.
 
 ### CSS Validation:
 
-- [Full CSS Validation Report](documentation/validation/css_validation.png)
+![CSS Validation Report](documentation/validation/cssvalid.png)
 
-- No errors or warnings were found when passing through the official [W3C (Jigsaw)](https://jigsaw.w3.org/css-validator/#validate_by_uri) validator except for the warnings about the use of css root variables and webkits for the box-shadow. However, css code works perfectly on various devices.
+- No errors or warnings were found when passing through the official [W3C (Jigsaw)](https://jigsaw.w3.org/css-validator/#validate_by_uri) validator.
 
 ### JS Validation:
 
-- [Full JS Validation Report](documentation/validation/js_validation.png)
+![JSHint Validation Report](documentation/validation/jsvalid.png)
 
-- No errors or warning messages were found when passing through the official [JSHint](https://www.jshint.com/) validator. However, the validator has pointed out that the module variable is not used, but this variable is needed for automated testing. Needless to say, as the modern js syntax was used (the Optional Chaining method - `?.`) `/* jshint esversion: 11 */` was added to the top of the file.
+- No errors or warning messages were found when passing through the official [JSHint](https://www.jshint.com/) validator.
 
 ### Python Validation:
 
-- [Full Python Validation Report](documentation/validation/python_validation.pdf)
+#### Chaatwala Project:
+##### asgi.py
+![Python Validation Report](documentation/validation/asgipy.png)
 
-- No errors were found when the code was passed through Valentin Bryukhanov's [online validation tool](http://pep8online.com/). According to the reports, the code is [Pep 8-compliant](https://legacy.python.org/dev/peps/pep-0008/). This checking was done manually by copying python code and pasting it into the validator.
+##### settings.py
+![Python Validation Report](documentation/validation/settingspy.png)
+
+##### urls.py
+![Python Validation Report](documentation/validation/urlspy.png)
+
+##### wsgi.py
+![Python Validation Report](documentation/validation/wsgipy.png)
+
+#### Bookings App:
+##### admin.py
+![Python Validation Report](documentation/validation/badminpy.png)
+
+##### apps.py
+![Python Validation Report](documentation/validation/bappspy.png)
+
+##### forms.py
+![Python Validation Report](documentation/validation/bformspy.png)
+
+##### models.py
+![Python Validation Report](documentation/validation/bmodelspy.png)
+
+##### urls.py
+![Python Validation Report](documentation/validation/burlspy.png)
+
+##### views.py
+![Python Validation Report](documentation/validation/bviewspy.png)
+
+##### test_forms.py
+![Python Validation Report](documentation/validation/btestforms.png)
+
+##### test_models.py
+![Python Validation Report](documentation/validation/btestmodels.png)
+
+##### test_urls.py
+![Python Validation Report](documentation/validation/btesturls.png)
+
+##### test_views.py
+![Python Validation Report](documentation/validation/btestviews.png)
+
+#### Profiles App:
+##### admin.py
+![Python Validation Report](documentation/validation/padminpy.png)
+
+##### apps.py
+![Python Validation Report](documentation/validation/pappspy.png)
+
+##### forms.py
+![Python Validation Report](documentation/validation/pformspy.png)
+
+##### models.py
+![Python Validation Report](documentation/validation/pmodelspy.png)
+
+##### urls.py
+![Python Validation Report](documentation/validation/purlspy.png)
+
+##### views.py
+![Python Validation Report](documentation/validation/pviewspy.png)
+
+##### test_forms.py
+![Python Validation Report](documentation/validation/ptestforms.png)
+
+##### test_models.py
+![Python Validation Report](documentation/validation/ptestmodels.png)
+
+##### test_signals.py
+![Python Validation Report](documentation/validation/ptestsignals.png)
+
+##### test_urls.py
+![Python Validation Report](documentation/validation/ptesturls.png)
+
+##### test_views.py
+![Python Validation Report](documentation/validation/ptestviews.png)
+
+#### Reiews App:
+##### admin.py
+![Python Validation Report](documentation/validation/radminpy.png)
+
+##### apps.py
+![Python Validation Report](documentation/validation/rappspy.png)
+
+##### forms.py
+![Python Validation Report](documentation/validation/rformspy.png)
+
+##### models.py
+![Python Validation Report](documentation/validation/rmodelspy.png)
+
+##### urls.py
+![Python Validation Report](documentation/validation/rurlspy.png)
+
+##### views.py
+![Python Validation Report](documentation/validation/rviewspy.png)
+
+##### test_forms.py
+![Python Validation Report](documentation/validation/rtestforms.png)
+
+##### test_models.py
+![Python Validation Report](documentation/validation/rtestmodels.png)
+
+##### test_urls.py
+![Python Validation Report](documentation/validation/rtesturls.png)
+
+##### test_views.py
+![Python Validation Report](documentation/validation/rtestviews.png)
+
+- No errors were found when the code was passed through Code Institute[CI Python Linter](https://pep8ci.herokuapp.com/). According to the reports, the code is [Pep 8-compliant](https://legacy.python.org/dev/peps/pep-0008/). This checking was done manually by copying python code and pasting it into the validator.
+
+---
+## Lighthouse Report
+
+### Menu/Home Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthousemenusmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthousemenusdesktop.png)
+
+### Bookings Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthousebookingsmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthousebookingsdesktop.png)
+
+### Profiles Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthouseprofilesmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthouseprofilesdesktop.png)
+
+### Sign Up Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthousesignupmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthousesignupdesktop.png)
+
+### Login Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthouseloginmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthouselogindesktop.png)
+
+### Log Out Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthouselogoutmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthouselogoutdesktop.png)
+
+### Forgot Password Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthouseforgotpassword.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthouseforgotpassworddesktop.png)
+
+### Edit Booking Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthouseeditbookingmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthouseeditbookingdesktop.png)
+
+### Edit Review Page
+#### Mobile
+![Lighthouse Report](documentation/validation/lighthouseeditreviewmobile.png)
+#### Desktop
+![Lighthouse Report](documentation/validation/lighthouseeditreviewdesktop.png)
+
+---
+
+## Compatibility
+
+Testing was conducted on the following browsers;
+
+### Safari
+![Compatibility Report](documentation/compatibility/safari.png)
+### Chrome
+![Compatibility Report](documentation/compatibility/chrome.png)
+### Firefox
+![Compatibility Report](documentation/compatibility/firefox.png)
 
 
+---
+
+# Responsiveness
+
+The responsiveness was checked manually by using devtools (Chrome) throughout the whole development. It was also checked with [Responsive Viewer](https://chrome.google.com/webstore/detail/responsive-viewer/inmopeiepgfljkpkidclfgbgbmfcennb/related?hl=en) Chrome extension.
+
+
+### Menu/Home Page
+![Responsiveness Report](documentation/responsive/menus1.png)
+![Responsiveness Report](documentation/responsive/menus2.png)
+![Responsiveness Report](documentation/responsive/menus3.png)
+
+### Login Page
+![Responsiveness Report](documentation/responsive/login1.png)
+
+### Sign Up Page
+![Responsiveness Report](documentation/responsive/signup1.png)
+
+### Bookings Page
+![Responsiveness Report](documentation/responsive/booking1.png)
+
+### Profiles Page
+![Responsiveness Report](documentation/responsive/profile1.png)
+![Responsiveness Report](documentation/responsive/profile2.png)
+![Responsiveness Report](documentation/responsive/profile3.png)
+
+### Edit Booking Page
+![Responsiveness Report](documentation/responsive/editbooking.png)
+
+### Edit Review Page
+![Responsiveness Report](documentation/responsive/editreview.png)
+
+### Forgot Password Page
+![Responsiveness Report](documentation/responsive/forgotpassword1.png)
+
+### Log Out Page
+![Responsiveness Report](documentation/responsive/logout1.png)
+---
