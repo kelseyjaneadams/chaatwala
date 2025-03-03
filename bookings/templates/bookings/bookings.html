@@ -3,7 +3,7 @@
 
 <section class="container d-flex justify-content-center align-items-center form-container">
     <div class="booking-form-wrapper">
-        <h2 id="booking-form-heading" class="text-center mb-4 visually-hidden">Book a Table</h2>
+        <h2 id="booking-form-heading" class="text-center mb-4">Book a Table</h2>
 
         <form method="post" action="{% url 'book_table' %}" class="booking-form" aria-labelledby="booking-form-heading">
             {% csrf_token %}
